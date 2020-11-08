@@ -1,0 +1,89 @@
+:root {
+    --themeColor: #4fce9f; /* rgb(141,53,197); */
+}
+
+@font-face {
+    font-family: SourceHans;
+    font-weight: normal;
+    src: local("SourceHanSansCN-Regular"), url(../font/SourceHanSansCN-Regular.otf);
+}
+
+@font-face {
+    font-family: SourceHans;
+    font-weight: lighter;
+    src: local("SourceHanSansCN-Light"), url(../font/SourceHanSansCN-Light.otf);
+}
+
+@font-face {
+    font-family: SourceHans;
+    font-weight: bold;
+    src: local("SourceHanSansCN-Bold"), url(../font/SourceHanSansCN-Bold.otf);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: SourceHans;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.defaultBtn {
+    background-color: var(--themeColor);
+    color: white;
+}
+
+button:hover {
+    filter: brightness(0.8);
+}
+
+span {
+    display: inline-block;
+    margin: 8px;
+}
+
+.labelM {
+    font-size: larger;
+}
+
+.labelS {
+    font-size: medium;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    padding: 8px 14px;
+    height: 18px;
+    border: 2px transparent solid;
+    border-radius: 20px;
+    font-size: 18px;
+    margin: 8px;
+    outline: none;
+    display: inline-block;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    border: 2px var(--themeColor) solid;
+}
+
+.forstedGlass {
+    background: inherit;
+    filter: blur(15px);
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+img {
+    object-fit: contain;
+    box-sizing: border-box;
+    border: none;
+}

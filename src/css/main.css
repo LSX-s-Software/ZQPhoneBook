@@ -1,0 +1,108 @@
+body {
+    background: url("../img/bg_blur.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.mainContainer {
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    left: 12%;
+    right: 12%;
+    border-radius: 5px;
+    background-color: white;
+    padding: 0;
+    overflow: hidden;
+}
+
+header {
+    width: 100%;
+    background-color: var(--themeColor);
+    height: 60px;
+    padding: 0;
+    display: flex;
+}
+
+#logo {
+    width: 250px;
+    height: 100%;
+    display: inline-block;
+    padding: 10px;
+}
+
+.headerCtrls {
+    display: inline-flex;
+    width: calc(100% - 250px);
+    height: 100%;
+    margin: 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.searchMember {
+    width: 35%;
+    min-width: 6em;
+    height: 36px;
+    overflow: hidden;
+    margin-left: 8px;
+    background-color: white;
+    border-radius: 20px;
+    display: inline-flex;
+}
+
+#searchMember {
+    width: calc(100% - 32px);
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#searchMember:focus {
+    border-color: transparent;
+}
+
+#searchMemberBtn {
+    width: 18px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#myAvatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+table {
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+tr, td {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+td {
+    overflow: scroll;
+}
+
+.treeViewContainer {
+    width: 250px;
+}
+
+/* .mainViewContainer {
+    background-color: greenyellow;
+} */
