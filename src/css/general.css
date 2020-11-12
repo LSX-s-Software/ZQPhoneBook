@@ -1,5 +1,13 @@
 :root {
-    --themeColor: #4fce9f; /* rgb(141,53,197); */
+    --themeColor: #03B169;
+    --navibarColor: #4fce9f;
+    --themeBGColor: #D7F1EA;
+    --highlightColor: #F99406;
+    --primaryGray: #F5F5F5;
+    --secondaryGray: #CEC9CB;
+    --tertiaryGray: #BABABA;
+    --quaternaryGray: #707070;
+    --darkerGray: #0D0202;
 }
 
 @font-face {
@@ -31,15 +39,16 @@ html, body {
 button {
     border: none;
     cursor: pointer;
+    color: white;
+    font-weight: bold;
 }
 
 .defaultBtn {
     background-color: var(--themeColor);
-    color: white;
 }
 
 button:hover {
-    filter: brightness(0.8);
+    filter: brightness(0.9);
 }
 
 span {
@@ -47,8 +56,14 @@ span {
     margin: 8px;
 }
 
+.labelL {
+    font-size: x-large;
+    font-weight: bold;
+}
+
 .labelM {
     font-size: larger;
+    font-weight: bold;
 }
 
 .labelS {
@@ -57,13 +72,14 @@ span {
 
 input[type="text"], input[type="email"], input[type="password"] {
     padding: 8px 14px;
-    height: 18px;
+    height: 20px;
     border: 2px transparent solid;
     border-radius: 20px;
     font-size: 18px;
     margin: 8px;
     outline: none;
     display: inline-block;
+    box-sizing: content-box;
 }
 
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
@@ -86,4 +102,11 @@ img {
     object-fit: contain;
     box-sizing: border-box;
     border: none;
+}
+
+.pageCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

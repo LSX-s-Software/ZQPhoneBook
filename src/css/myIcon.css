@@ -1,0 +1,34 @@
+.myIcon {
+    margin-bottom: 2px;
+    margin-right: 14px !important;
+    height: 12px;
+    transform: scale(2.5);
+}
+
+.icon-arrow {
+    content: url(../img/arrow.png);
+    transform: scale(1);
+    margin-right: 5px !important;
+}
+
+.icon-arrow-down {
+    content: url(../img/arrow.png);
+    transform: scale(1) rotate(90deg);
+    margin-right: 5px !important;
+}
+
+.icon-myClub {
+    content: url(../img/myClub.png);
+}
+
+.icon-createClub {
+    content: url(../img/createClub.png);
+}
+
+.icon-joinClub {
+    content: url(../img/joinClub.png);
+}
+
+.icon-club {
+    content: url(../img/club.png);
+}

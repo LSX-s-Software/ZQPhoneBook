@@ -2,6 +2,7 @@ body {
     background: url("../img/bg_blur.jpg") no-repeat;
     background-size: cover;
     background-position: center;
+    color: #000;
 }
 
 .mainContainer {
@@ -10,22 +11,24 @@ body {
     bottom: 5%;
     left: 12%;
     right: 12%;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: white;
     padding: 0;
     overflow: hidden;
+    min-width: 600px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 header {
     width: 100%;
-    background-color: var(--themeColor);
+    background-color: var(--navibarColor);
     height: 60px;
     padding: 0;
     display: flex;
 }
 
 #logo {
-    width: 250px;
+    width: calc(100% / 4);
     height: 100%;
     display: inline-block;
     padding: 10px;
@@ -45,7 +48,7 @@ header {
 
 .searchMember {
     width: 35%;
-    min-width: 6em;
+    min-width: 12em;
     height: 36px;
     overflow: hidden;
     margin-left: 8px;
@@ -77,32 +80,75 @@ header {
     width: 40px;
     border-radius: 50%;
     background-color: white;
+    cursor: pointer;
 }
 
-table {
+.main {
     width: 100%;
     height: calc(100% - 60px);
     padding: 0;
     margin: 0;
-    border: none;
-    border-collapse: collapse;
+    display: flex;
 }
 
-tr, td {
-    margin: 0;
-    padding: 0;
-    border: none;
-    border-collapse: collapse;
-}
-
-td {
+.main div {
     overflow: scroll;
 }
 
 .treeViewContainer {
-    width: 250px;
+    width: 25%;
+    background-color: var(--themeBGColor);
 }
 
-/* .mainViewContainer {
-    background-color: greenyellow;
-} */
+#tree {
+    width: 100%;
+    height: 100%;
+    padding: 18px 0 18px;
+}
+
+#tree .list-group-item {
+    border-radius: 0;
+    padding: 12px 8px;
+}
+
+.mainViewContainer {
+    position: relative;
+    width: 75%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.myClubContainer, .createClubContainer, .joinClubContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.joinClubContainer {
+    background-image: url(../img/joinClubBG.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.joinClub {
+    text-align: center;
+    width: 50%;
+}
+
+#inviteCode {
+    width: calc(100% - 48px);
+    background-color: var(--primaryGray);
+}
+
+#joinClub {
+    height: 2.5em;
+    border-radius: 1.25em;
+    margin-top: 18px;
+    padding: 0 18px;
+}
+
+.myModal-dialog {
+    width: 400px;
+    height: 250px;
+}
