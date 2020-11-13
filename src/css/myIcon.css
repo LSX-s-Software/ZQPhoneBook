@@ -32,3 +32,7 @@
 .icon-club {
     content: url(../img/club.png);
 }
+
+.pic-lastStep {
+    content: '<svg xmlns="http://www.w3.org/2000/svg" width="344.5" height="85" viewBox="0 0 344.5 85"><text id="Last_Step" data-name="Last Step" transform="translate(17 78)" fill="#4fce9f" font-size="30" font-family="SourceHanSansCN-Bold, Source Han Sans CN" font-weight="700"><tspan x="0" y="0">Last Step</tspan></text><text id="最后一步" transform="translate(0 35)" fill="#4fce9f" font-size="40" font-family="SourceHanSansCN-Bold, Source Han Sans CN" font-weight="700"><tspan x="0" y="0">最后一步</tspan></text><text id="添加成员信息" transform="translate(194 41)" fill="#0d0202" font-size="25" font-family="SourceHanSansCN-Regular, Source Han Sans CN"><tspan x="0" y="0">添加成员信息</tspan></text><line id="直线_19" data-name="直线 19" x2="344" transform="translate(0.5 48.5)" fill="none" stroke="#d9f6d8" stroke-width="1"/></svg>';
+}

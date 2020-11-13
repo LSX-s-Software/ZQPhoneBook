@@ -44,14 +44,21 @@ $(document).ready(function () {
         el: ".mainViewContainer",
         data: {
             show: [true, false, false],
+            step: 1,
+            clubName: "",
+            clubDescription: "",
+            inviteCode: ""
         },
         //----------按钮点击事件-------------
         methods: {
+            createClub: function () { 
+                this.step = 2;
+            },
             joinClub: function () {
                 myModal.show({
-                    template: 2,
-                    state: ["fail", "fail"],
-                    errMsg: ["123", "456"],
+                    template: 1,
+                    state: ["success", ""],
+                    errMsg: ["", ""],
                     clubName: "自强Studio"
                 })
             }

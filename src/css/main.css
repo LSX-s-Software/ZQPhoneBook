@@ -62,6 +62,7 @@ header {
     height: 100%;
     box-sizing: border-box;
     margin: 0;
+    background-color: white;
 }
 
 #searchMember:focus {
@@ -125,6 +126,10 @@ header {
     height: 100%;
 }
 
+.myClubContainer div, .createClubContainer div, .joinClubContainer div {
+    position: relative;
+}
+
 .joinClubContainer {
     background-image: url(../img/joinClubBG.png);
     background-size: cover;
@@ -142,13 +147,49 @@ header {
 }
 
 #joinClub {
-    height: 2.5em;
-    border-radius: 1.25em;
     margin-top: 18px;
-    padding: 0 18px;
 }
 
 .myModal-dialog {
     width: 400px;
     height: 250px;
+}
+
+.uploadImg {
+    width: 100%;
+    height: 30%;
+    min-height: 175px;
+}
+
+.basicInfo, .importMember {
+    width: 100%;
+    padding: 35px;
+}
+
+.basicInfo input {
+    width: calc(100% - 48px);
+}
+
+#imgPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#uploadImg {
+    margin: 0;
+    background-color: var(--highlightColor);
+    z-index: 10;
+}
+
+#createClub {
+    margin-top: 2em;
+}
+
+.importMember svg {
+    margin: 4%;
+}
+
+#importMember {
+    margin-top: 5%;
 }

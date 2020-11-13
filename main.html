@@ -25,12 +25,12 @@
 <body>
     <div class="mainContainer">
         <header>
-            <img src="src/img/LOGO1.png" alt="" id="logo">
+            <img src="src/img/LOGO1.png" id="logo">
             <div class="headerCtrls">
                 <div class="searchMember">
                     <input type="text" id="searchMember" placeholder="搜索成员"><img src="src/img/search.png" alt="" id="searchMemberBtn">
                 </div>
-                <img src="src/img/avatar.png" alt="" id="myAvatar">
+                <img src="src/img/avatar.png" id="myAvatar">
             </div>
         </header>
         <div class="main">
@@ -41,14 +41,37 @@
                 <div class="myClubContainer" v-if="show[0]">
                     fasdfasdas1
                 </div>
+                <!--创建社团-->
                 <div class="createClubContainer" v-if="show[1]">
-                    fasdfasdas2
+                    <div class="uploadImg" v-if="step==1">
+                        <button id="uploadImg" class="pageCenter largeBtn"><img src="src/img/img.png">上传图片</button>
+                        <img src="src/img/joinClubBG.png" alt="背景图预览" id="imgPreview">
+                    </div>
+                    <div class="basicInfo" v-if="step==1">
+                        <span class="labelS"><b>社团名称</b></span><br>
+                        <input type="text" placeholder="请输入社团名称" v-model="clubName"><br><br>
+                        <span class="labelS"><b>一句话介绍</b></span><br>
+                        <input type="text" placeholder="用简短的一句话来介绍一下你的社团" v-model="clubDescription">
+                        <div class="center">
+                            <button class="largeBtn defaultBtn" id="createClub" v-bind:disabled="clubName==''||clubDescription==''" v-on:click="createClub">下一步</button>
+                        </div>
+                    </div>
+                    <div class="importMember" v-if="step==2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="229.7" height="56.7" viewBox="0 0 344.5 85"><text transform="translate(17 78)" fill="#4fce9f" font-size="30" font-weight="700"><tspan x="0" y="0">Last Step</tspan></text><text transform="translate(0 35)" fill="#4fce9f" font-size="40" font-weight="700"><tspan x="0" y="0">最后一步</tspan></text><text transform="translate(194 41)" fill="#0d0202" font-size="25"><tspan x="0" y="0">添加成员信息</tspan></text><line x2="344" transform="translate(0.5 48.5)" fill="none" stroke="#d9f6d8" stroke-width="1"/></svg>
+                        <div class="center">
+                            <button class="x-largeBtn defaultBtn" id="importMember"><img src="src/img/import.png">从Excel导入</button>
+                        </div>
+                        <div class="memberPreview">
+
+                        </div>
+                    </div>
                 </div>
+                <!--加入社团-->
                 <div class="joinClubContainer" v-if="show[2]">
                     <div class="pageCenter joinClub">
                         <h2>加入社团</h2>
-                        <input type="text" id="inviteCode" placeholder="请输入社团邀请码"><br>
-                        <button id="joinClub" class="defaultBtn" v-on:click="joinClub">提交申请</button>
+                        <input type="text" id="inviteCode" placeholder="请输入社团邀请码" v-model="inviteCode"><br>
+                        <button id="joinClub" class="defaultBtn largeBtn" v-on:click="joinClub" v-bind:disabled="inviteCode==''">提交申请</button>
                     </div>
                 </div>
             </div>
@@ -58,7 +81,7 @@
         <div class="myModal-dialog">
             <!--模版1-->
             <div class="myModal-message" v-if="template == 1">
-                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'" alt="">
+                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
                 {{ state[0] == "success" ? "审核通过，你已成功加入" : "出现错误：" + errMsg[0] }}</span>
                 <span class="labelM" style="width: 100%;" v-if="state[0] == 'success'">{{ clubName }}</span>
             </div>
@@ -69,9 +92,9 @@
             </div>
             <!--模版2-->
             <div class="myModal-message" v-if="template == 2">
-                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'" alt="">
+                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
                 {{ state[0] == "success" ? "社团创建成功" : "出现错误：" + errMsg[0] }}</span>
-                <span class="labelS"><img v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'" alt="">
+                <span class="labelS"><img v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
                 {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}</span>
             </div>
             <div class="myModal-buttons" v-if="template == 2">

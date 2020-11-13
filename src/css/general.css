@@ -4,7 +4,7 @@
     --themeBGColor: #D7F1EA;
     --highlightColor: #F99406;
     --primaryGray: #F5F5F5;
-    --secondaryGray: #CEC9CB;
+    --secondaryGray: #cacaca;
     --tertiaryGray: #BABABA;
     --quaternaryGray: #707070;
     --darkerGray: #0D0202;
@@ -41,14 +41,43 @@ button {
     cursor: pointer;
     color: white;
     font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    flex-wrap: nowrap;
+    white-space:nowrap;
 }
 
 .defaultBtn {
     background-color: var(--themeColor);
 }
 
+.largeBtn {
+    height: 2.5em;
+    border-radius: 1.25em;
+    padding: 0 18px;
+    margin: 18px;
+}
+
+.x-largeBtn {
+    height: 3em;
+    border-radius: 1.5em;
+    padding: 0 24px;
+}
+
 button:hover {
-    filter: brightness(0.9);
+    filter: brightness(1.1);
+}
+
+button:disabled {
+    filter: grayscale(1);
+    cursor: not-allowed;
+}
+
+button img {
+    height: 1em;
+    margin-right: 8px;
 }
 
 span {
@@ -80,6 +109,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     outline: none;
     display: inline-block;
     box-sizing: content-box;
+    background-color: var(--primaryGray);
 }
 
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
@@ -109,4 +139,9 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+
+.center {
+    width: 100%;
+    text-align: center;
 }
