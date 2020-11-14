@@ -1,0 +1,118 @@
+body {
+    background: url("../img/bg_blur.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: #000;
+}
+
+.mainContainer {
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    left: 12%;
+    right: 12%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 0;
+    overflow: hidden;
+    min-width: 600px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
+}
+
+header {
+    width: 100%;
+    background-color: var(--navibarColor);
+    height: 60px;
+    padding: 0;
+    display: flex;
+}
+
+#logo {
+    width: 25%;
+    height: 100%;
+    display: inline-block;
+    padding: 10px;
+}
+
+.headerCtrls {
+    display: inline-flex;
+    width: 75%;
+    height: 100%;
+    margin: 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.main {
+    width: calc(100% - 36px);
+    height: calc(100% - 96px);
+    padding: 22px 18px;
+    margin: 18px;
+    display: flex;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
+    border-radius: 0 0 10px 10px;
+    overflow-y: scroll;
+}
+
+.icon-home {
+    cursor: pointer;
+}
+
+#logout {
+    color: var(--red);
+    cursor: pointer;
+}
+
+#avatar {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+}
+
+.myInfo {
+    margin: 10px 35px;
+}
+
+.myInfo .col-lg-5 {
+    border-bottom: 1px var(--secondaryGray) solid;
+    padding: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.myInfo .labelS {
+    font-weight: bold;
+    width: 5.5em;
+}
+
+.edit {
+    color: var(--themeColor);
+    cursor: pointer;
+}
+
+.edit .myIcon {
+    transform: none;
+    height: 1em;
+    margin: 0 8px !important;
+}
+
+.editable {
+    width: calc(100% - 6em);
+    color: var(--darkerGray);
+}
+
+.editable:disabled {
+    background-color: transparent;
+    color: var(--darkerGray) !important;
+}
+
+#myName {
+    width: 6em;
+    text-align: center;
+    margin-top: 18px;
+}

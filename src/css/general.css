@@ -7,7 +7,7 @@
     --secondaryGray: #cacaca;
     --tertiaryGray: #BABABA;
     --quaternaryGray: #707070;
-    --darkerGray: #0D0202;
+    --darkerGray: #050505;
 }
 
 @font-face {
@@ -34,6 +34,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: SourceHans;
+    font-weight: normal;
 }
 
 button {
@@ -51,6 +52,13 @@ button {
 
 .defaultBtn {
     background-color: var(--themeColor);
+}
+
+.smallBtn {
+    height: 1.5em;
+    border-radius: 0.75em;
+    padding: 0 14px;
+    margin: 14px;
 }
 
 .largeBtn {

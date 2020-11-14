@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>我的资料</title>
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="stylesheet" href="src/lib/bootstrap-4.5.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/general.css">
+    <link rel="stylesheet" href="src/css/myIcon.css">
+    <link rel="stylesheet" href="src/css/me.css">
+    <script src="src/lib/jquery-3.5.1.min.js"></script>
+    <script src="src/lib/vue.js"></script>
+    <script src="src/lib/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script src="src/js/page/me.js"></script>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <header>
+            <img src="src/img/LOGO1.png" id="logo">
+            <div class="headerCtrls">
+                <span class="myIcon icon-home" onclick="window.location.href='main.html'"></span>
+            </div>
+        </header>
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120"
+                            height="36.7" viewBox="0 0 180.851 55">
+                            <g>
+                                <text transform="translate(62 36)" fill="#0d0202" font-size="25">
+                                    <tspan x="0" y="0">个人中心</tspan>
+                                </text>
+                                <image width="54" height="54" transform="translate(0 0)"
+                                    xlink:href="data:image/png;base64,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" />
+                                <line x2="138" transform="translate(42.851 54.5)" fill="none" stroke="#bcb8b9"
+                                    stroke-width="1" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="col-lg-3 text-right">
+                        <span class="edit" v-on:click="onEdit=!onEdit"><span class="myIcon icon-edit"></span>{{ onEdit ? "完成" : "编辑" }}</span>
+                        <span id="logout">退出登录</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center"><img v-bind:src="myInfo.avatarURL" id="avatar"></div>
+                    <div class="col-lg-12 text-center"><input type="text" class="labelL editable"
+                            v-bind:disabled="!onEdit" v-model="myInfo.name" id="myName"></div>
+                </div>
+                <div class="row myInfo">
+                    <div class="col-lg-5">
+                        <span class="labelS">昵称</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.nickName">
+                    </div>
+                    <!-- <span class="edit" data-target="" v-if=""><span class="myIcon icon-edit"></span>编辑</span> -->
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">性别</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.gender"></div>
+                    <div class="col-lg-5">
+                        <span class="labelS">手机</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.phone"></div>
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">邮箱</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.email"></div>
+                    <div class="col-lg-5">
+                        <span class="labelS">QQ</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.qq"></div>
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">微信</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.wechat"></div>
+                    <div class="col-lg-5">
+                        <span class="labelS">学校</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.university"></div>
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">年级</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.grade"></div>
+                    <div class="col-lg-5">
+                        <span class="labelS">学院</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.school"></div>
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">学号</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.schoolNumber">
+                    </div>
+                    <div class="col-lg-5">
+                        <span class="labelS">生日</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.birthday"></div>
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">家乡</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.hometown"></div>
+                    <div class="col-lg-5">
+                        <span class="labelS">宿舍楼</span>
+                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.dormBuilding">
+                    </div>
+                    <div class="col-lg-5 offset-lg-2">
+                        <span class="labelS">感情状态</span><input type="text" class="editable" v-bind:disabled="!onEdit"
+                            v-model="myInfo.marriage ? '已有灵魂伴侣' : '单身'">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button class="largeBtn defaultBtn" v-on:click="onEdit=!onEdit">{{ onEdit ? "完成" : "编辑" }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
