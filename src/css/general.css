@@ -41,6 +41,7 @@ button {
     border: none;
     cursor: pointer;
     color: white;
+    background-color: var(--tertiaryGray);
     font-weight: bold;
     display: inline-flex;
     align-items: center;
@@ -48,6 +49,7 @@ button {
     justify-items: center;
     flex-wrap: nowrap;
     white-space:nowrap;
+    outline: none;
 }
 
 .defaultBtn {

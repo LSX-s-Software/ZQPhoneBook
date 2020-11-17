@@ -7,10 +7,11 @@ body {
 
 .mainContainer {
     position: absolute;
-    top: 5%;
-    bottom: 5%;
-    left: 12%;
-    right: 12%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 76%;
+    height: 92%;
     border-radius: 10px;
     background-color: white;
     padding: 0;
@@ -80,7 +81,7 @@ header {
 
 .myInfo .col-lg-5 {
     border-bottom: 1px var(--secondaryGray) solid;
-    padding: 8px;
+    padding: 14px 6px;
     margin-top: 12px;
     margin-bottom: 12px;
     display: inline-flex;
@@ -106,15 +107,18 @@ header {
 .editable {
     width: calc(100% - 6em);
     color: var(--darkerGray);
+    margin: 0;
 }
 
 .editable:disabled {
     background-color: transparent;
     color: var(--darkerGray) !important;
+    margin: 0;
 }
 
 #myName {
     width: 6em;
     text-align: center;
     margin-top: 18px;
+    font-size: x-large;
 }
