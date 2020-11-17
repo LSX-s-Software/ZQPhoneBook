@@ -28,9 +28,9 @@
             <img src="src/img/LOGO1.png" id="logo">
             <div class="headerCtrls">
                 <div class="searchMember">
-                    <input type="text" id="searchMember" placeholder="搜索成员"><img src="src/img/search.png" alt="" id="searchMemberBtn">
+                    <input type="text" id="searchMember" placeholder="搜索成员"><img src="src/img/search.png" id="searchMemberBtn">
                 </div>
-                <img src="src/img/avatar.png" id="myAvatar" onclick="window.location.href='me.html'">
+                <img v-bind:src="myInfo.avatarURL" id="myAvatar" onclick="window.location.href='me.html'">
             </div>
         </header>
         <div class="main">
@@ -39,13 +39,64 @@
             </div>
             <div class="mainViewContainer">
                 <div class="myClubContainer" v-if="show[0]">
-                    fasdfasdas1
+                    <!--dashboard-->
+                    <div class="dashboard" v-if="nodeId==0">
+                        <div class="container">
+                            <div class="row" style="margin-top: 25px;">
+                                <div class="col-lg-12 text-center"><img v-bind:src="myInfo.avatarURL" id="avatar"></div>
+                                <div class="col-lg-12 text-center"><span class="labelL">{{ myInfo.name }}</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <span class="labelM">加入的社团</span>
+                                </div>
+                                <div class="col-lg-12 cardContainer">
+                                    <div class="card" v-for="club in myClubs" :key="club.id"
+                                        v-bind:style="{ backgroundImage: 'url(' + club.bgURL + ')' }"
+                                        v-on:click="cardClicked(club.id)">
+                                        <span class="labelL center">{{ club.name }}</span>
+                                        <span class="labelM">{{ club.size }} 人</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--背景图-->
+                    <div class="clubBGImgContainer" v-if="nodeId!=0">
+                        <img v-bind:src="myClubs[currentClubId].bgURL" alt="社团背景图" class="clubBGImg">
+                        <div class="controls">
+                            <div v-if="!listEditing"></div>
+                            <div class="left" v-if="listEditing">
+                                <button class="mediumBtn" v-on:click="addHQ(currentId)"><img
+                                        src="src/img/add.png">添加部门</button>
+                                <button class="mediumBtn" v-on:click="renewMember(currentId)"><img
+                                        src="src/img/renewMember.png">更新成员</button>
+                            </div>
+                            <div class="right">
+                                <button class="mediumBtn" v-if="myInfo.manager[currentClubId]"
+                                    v-on:click="listEditing=!listEditing">{{ listEditing?"完成":"编辑"}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--列表-->
+                    <div class="list" v-if="nodeId!=0">
+                        <div class="list-item-group">
+                            <div class="list-item" v-for="item in currentList">
+                                <div class="list-item-title">{{ item.name }}</div>
+                                <div class="list-item-ctrls text-right">
+                                    <span class="myIcon icon-edit" v-if="listEditing"></span>
+                                    <span class="myIcon icon-delete" v-if="listEditing"></span>
+                                    <span class="myIcon icon-arrow"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--创建社团-->
                 <div class="createClubContainer" v-if="show[1]">
-                    <div class="uploadImg" v-if="step==1">
+                    <div class="clubBGImgContainer" v-if="step==1">
                         <button id="uploadImg" class="pageCenter largeBtn"><img src="src/img/img.png">上传图片</button>
-                        <img src="src/img/joinClubBG.png" alt="背景图预览" id="imgPreview">
+                        <img src="src/img/joinClubBG.png" alt="背景图预览" id="imgPreview" class="clubBGImg">
                     </div>
                     <div class="basicInfo" v-if="step==1">
                         <span class="labelS"><b>社团名称</b></span><br>
@@ -53,13 +104,25 @@
                         <span class="labelS"><b>一句话介绍</b></span><br>
                         <input type="text" placeholder="用简短的一句话来介绍一下你的社团" v-model="clubDescription">
                         <div class="center">
-                            <button class="largeBtn defaultBtn" id="createClub" v-bind:disabled="clubName==''||clubDescription==''" v-on:click="createClub">下一步</button>
+                            <button class="largeBtn defaultBtn" id="createClub"
+                                v-bind:disabled="clubName==''||clubDescription==''" v-on:click="createClub">下一步</button>
                         </div>
                     </div>
                     <div class="importMember" v-if="step==2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="229.7" height="56.7" viewBox="0 0 344.5 85"><text transform="translate(17 78)" fill="#4fce9f" font-size="30" font-weight="700"><tspan x="0" y="0">Last Step</tspan></text><text transform="translate(0 35)" fill="#4fce9f" font-size="40" font-weight="700"><tspan x="0" y="0">最后一步</tspan></text><text transform="translate(194 41)" fill="#0d0202" font-size="25"><tspan x="0" y="0">添加成员信息</tspan></text><line x2="344" transform="translate(0.5 48.5)" fill="none" stroke="#d9f6d8" stroke-width="1"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="229.7" height="56.7" viewBox="0 0 344.5 85"><text
+                                transform="translate(17 78)" fill="#4fce9f" font-size="30" font-weight="700">
+                                <tspan x="0" y="0">Last Step</tspan>
+                            </text><text transform="translate(0 35)" fill="#4fce9f" font-size="40" font-weight="700">
+                                <tspan x="0" y="0">最后一步</tspan>
+                            </text><text transform="translate(194 41)" fill="#0d0202" font-size="25">
+                                <tspan x="0" y="0">添加成员信息</tspan>
+                            </text>
+                            <line x2="344" transform="translate(0.5 48.5)" fill="none" stroke="#d9f6d8"
+                                stroke-width="1" />
+                        </svg>
                         <div class="center">
-                            <button class="x-largeBtn defaultBtn" id="importMember"><img src="src/img/import.png">从Excel导入</button>
+                            <button class="x-largeBtn defaultBtn" id="importMember"><img
+                                    src="src/img/import.png">从Excel导入</button>
                         </div>
                         <div class="memberPreview">
 
@@ -71,7 +134,8 @@
                     <div class="pageCenter joinClub">
                         <h2>加入社团</h2>
                         <input type="text" id="inviteCode" placeholder="请输入社团邀请码" v-model="inviteCode"><br>
-                        <button id="joinClub" class="defaultBtn largeBtn" v-on:click="joinClub" v-bind:disabled="inviteCode==''">提交申请</button>
+                        <button id="joinClub" class="defaultBtn largeBtn" v-on:click="joinClub"
+                            v-bind:disabled="inviteCode==''">提交申请</button>
                     </div>
                 </div>
             </div>
@@ -81,28 +145,108 @@
         <div class="myModal-dialog">
             <!--模版1-->
             <div class="myModal-message" v-if="template == 1">
-                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
-                {{ state[0] == "success" ? "审核通过，你已成功加入" : "出现错误：" + errMsg[0] }}</span>
+                <span class="labelS"><img
+                        v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
+                    {{ state[0] == "success" ? "审核通过，你已成功加入" : "出现错误：" + errMsg[0] }}</span>
                 <span class="labelM" style="width: 100%;" v-if="state[0] == 'success'">{{ clubName }}</span>
             </div>
             <div class="myModal-buttons" v-if="template == 1">
-                <button class="defaultBtn" id="myModal-default" v-if="state[0] == 'success'" v-on:click="backToMyClub">返回我的社团</button>
-                <button class="defaultBtn" id="myModal-retry" v-if="state[0] == 'fail'" v-on:click="retry">重试</button>
-                <button id="myModal-cancel" v-if="state[0] == 'fail'" v-on:click="close">取消</button>
+                <button class="defaultBtn mediumBtn" id="myModal-default" v-if="state[0] == 'success'"
+                    v-on:click="backToMyClub">返回我的社团</button>
+                <button class="defaultBtn mediumBtn" id="myModal-retry" v-if="state[0] == 'fail'"
+                    v-on:click="retry">重试</button>
+                <button class="mediumBtn" id="myModal-cancel" v-if="state[0] == 'fail'" v-on:click="close">取消</button>
             </div>
             <!--模版2-->
             <div class="myModal-message" v-if="template == 2">
-                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
-                {{ state[0] == "success" ? "社团创建成功" : "出现错误：" + errMsg[0] }}</span>
-                <span class="labelS"><img v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
-                {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}</span>
+                <span class="labelS"><img
+                        v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
+                    {{ state[0] == "success" ? "社团创建成功" : "出现错误：" + errMsg[0] }}</span>
+                <span class="labelS"><img
+                        v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
+                    {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}</span>
             </div>
             <div class="myModal-buttons" v-if="template == 2">
-                <button class="defaultBtn" id="myModal-default" v-if="state[0] == 'success' && state[1] == 'success'" >获取成员邀请码</button>
-                <button class="defaultBtn" id="myModal-retry" v-if="state[0] == 'fail' || state[1] == 'fail'" v-on:click="retry">重试</button>
-                <button id="myModal-cancel" v-if="state[0] == 'fail' || state[1] == 'fail'" v-on:click="close">取消</button>
+                <button class="defaultBtn mediumBtn" id="myModal-default"
+                    v-if="state[0] == 'success' && state[1] == 'success'">获取成员邀请码</button>
+                <button class="defaultBtn mediumBtn" id="myModal-retry" v-if="state[0] == 'fail' || state[1] == 'fail'"
+                    v-on:click="retry">重试</button>
+                <button class="mediumBtn" id="myModal-cancel" v-if="state[0] == 'fail' || state[1] == 'fail'"
+                    v-on:click="close">取消</button>
+            </div>
+            <!--模版3-->
+            <div class="myModal-message" v-if="template==3">
+                <div class="container">
+                    <div class="row">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="109.2"
+                            height="33" viewBox="0 0 181.851 55">
+                            <g transform="translate(12)"><text transform="translate(51 37)" fill="#0d0202"
+                                    font-size="25" font-weight="700">
+                                    <tspan x="0" y="0">添加部门</tspan>
+                                </text>
+                                <line x2="138" transform="translate(31.851 54.5)" fill="none" stroke="#bcb8b9"
+                                    stroke-width="1" />
+                                <image width="55" height="55" transform="translate(-12)"
+                                    xlink:href="data:image/png;base64,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" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-lg-12 text-left">
+                            <span class="labelM">部门名称</span>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <input type="text" v-model="HQName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="myModal-buttons" v-if="template==3">
+                <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="" v-show="HQName!=''">添加</button>
+                <button class="mediumBtn" id="myModal-cancel" v-show="HQName==''" v-on:click="close">取消</button>
+            </div>
+            <!--模版4-->
+            <div class="myModal-message" v-if="template==4" style="justify-content: flex-start;height: 20%;">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="109.2"
+                    height="33" viewBox="0 0 182.499 53">
+                    <defs>
+                        <pattern id="pattern" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"
+                            viewBox="0 0 200 200">
+                            <image width="200" height="200"
+                                xlink:href="data:image/png;base64,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" />
+                        </pattern>
+                    </defs>
+                    <g transform="translate(229.67 -46.932)"><text transform="translate(-166.67 82.932)" fill="#0d0202"
+                            font-size="25" font-weight="700">
+                            <tspan x="0" y="0">更新成员</tspan>
+                        </text>
+                        <line x2="138" transform="translate(-185.171 99.432)" fill="none" stroke="#bcb8b9"
+                            stroke-width="1" />
+                        <rect width="53" height="53" transform="translate(-229.67 46.932)" fill="url(#pattern)" />
+                    </g>
+                </svg>
+            </div>
+            <div class="myModal-buttons" v-if="template==4" style="height: 80%;">
+                <div class="container">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-lg-12 text-center">
+                            <button class="defaultBtn smallBtn"><img src="src/img/addMember.png">普通添加</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-lg-12 text-center">
+                            <button class="defaultBtn smallBtn" style="background-color:var(--highlightColor);"><img src="src/img/change.png">换届更新</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 14px;">
+                        <div class="col-lg-12 text-center">
+                            <button class="smallBtn" id="myModal-cancel" v-on:click="close">取消</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 

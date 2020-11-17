@@ -16,6 +16,7 @@ body {
     padding: 0;
     overflow: hidden;
     min-width: 600px;
+    min-height: 500px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
 }
 
@@ -82,22 +83,12 @@ header {
     border-radius: 50%;
     background-color: white;
     cursor: pointer;
-}
-
-@keyframes popup {
-    from {
-        transform: scale(1);
-        box-shadow: none;
-    }
-    to {
-        transform: scale(1.05);
-        box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
-    }
+    transition: transform ease-in-out 0.3s, box-shadow ease-in-out 0.3s;
 }
 
 #myAvatar:hover {
-    animation: popup 0.3s;
-    animation-fill-mode: forwards;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
 }
 
 .main {
@@ -168,13 +159,19 @@ header {
 
 .myModal-dialog {
     width: 400px;
-    height: 250px;
+    height: 260px;
 }
 
-.uploadImg {
+.clubBGImgContainer {
     width: 100%;
     height: 30%;
     min-height: 175px;
+}
+
+.clubBGImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .basicInfo, .importMember {
@@ -184,12 +181,6 @@ header {
 
 .basicInfo input {
     width: calc(100% - 48px);
-}
-
-#imgPreview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 #uploadImg {
@@ -208,4 +199,124 @@ header {
 
 #importMember {
     margin-top: 5%;
+}
+
+.dashboard {
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard .row {
+    padding: 18px;
+    margin-top: 8px;
+}
+
+#avatar {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+    margin: 8px;
+}
+
+.cardContainer {
+    display: flex;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.dashboard .card {
+    background-position: center;
+    background-size: cover;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 200px;
+    height: 123.6px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    margin: 12px 12px 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+    box-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.1);
+    transition: filter ease-in-out 0.3s,transform ease-in-out 0.3s;
+}
+
+.dashboard .card:hover {
+    filter: brightness(1.05);
+    transform: scale(1.02);
+}
+
+.card .labelM, .card .labelL {
+    margin-top: 0;
+    font-weight: normal;
+}
+
+.badge {
+    float: right;
+    color: #212529;
+    background-color: var(--highlightColor);
+}
+
+.list {
+    background-color: var(--primaryGray);
+    height: 70%;
+    overflow-y: scroll;
+}
+
+.list-item-group {
+    margin: 18px 18px 0;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.list-item-group:last-child {
+    margin-bottom: 18px;
+}
+
+.list-item {
+    padding: 14px 22px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px var(--secondaryGray) solid;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.list-item .myIcon {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.clubBGImgContainer .controls {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: space-between;
+    z-index: 10;
+}
+
+.clubBGImgContainer .controls .left button {
+    background-color: #fff;
+    color: #000;
+    font-weight: normal;
+    margin-left: 0;
+}
+
+.clubBGImgContainer .controls .left button:first-child {
+    margin-left: 16px;
+}
+
+.clubBGImgContainer .controls .right button {
+    background-color: var(--highlightColor);
 }

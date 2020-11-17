@@ -40,3 +40,16 @@
 .icon-edit {
     content: url(../img/edit.png);
 }
+
+.icon-HQ {
+    content: url(../img/HQ.png);
+    transform: scale(2);
+}
+
+.icon-delete {
+    content: url(../img/delete.png);
+}
+
+.icon-add {
+    content: url(../img/add.png);
+}

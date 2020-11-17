@@ -7,7 +7,8 @@ $(document).ready(function () {
             template: 0,
             state: ["", ""],
             errMsg: ["", ""],
-            clubName: ""
+            clubName: "",
+            HQName: ""
         },
         mounted() {
             window.vue = this

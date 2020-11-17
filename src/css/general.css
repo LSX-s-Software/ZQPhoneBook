@@ -61,6 +61,13 @@ button {
     margin: 14px;
 }
 
+.mediumBtn {
+    height: 2em;
+    border-radius: 1em;
+    padding: 0 16px;
+    margin: 16px;
+}
+
 .largeBtn {
     height: 2.5em;
     border-radius: 1.25em;
@@ -152,4 +159,6 @@ img {
 .center {
     width: 100%;
     text-align: center;
+    margin-left: 0;
+    margin-right: 0;
 }
