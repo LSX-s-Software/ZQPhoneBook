@@ -9,16 +9,13 @@
     }
 }
 
-h1 {
+.logo {
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%,-50%);
-    font-size: 4em;
+    height: 150px;
     z-index: 11;
-    font-weight: normal;
-    color: white;
-    text-shadow: 2px 2px 4px #121212;
 }
 
 footer {
@@ -82,9 +79,10 @@ footer {
     /* background-color: rgba(250, 250, 250, 0.9); */
 }
 
-.login h2 {
+.login h1 {
     text-align: center;
     margin: 6px;
+    font-weight: normal;
 }
 
 .login input {

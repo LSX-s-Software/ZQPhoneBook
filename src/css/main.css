@@ -212,8 +212,9 @@ header {
 }
 
 #avatar {
-    width: 125px;
-    height: 125px;
+    width: 20%;
+    min-width: 125px;
+    min-height: 125px;
     border-radius: 50%;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
     margin: 8px;

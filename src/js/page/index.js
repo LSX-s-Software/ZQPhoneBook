@@ -19,13 +19,23 @@ $(document).ready(function () {
         e.preventDefault();
         mySwiper.autoplay.stop();
         $("#login").fadeOut();
-        $("h1").fadeOut(500, function () {
+        $(".logo").fadeOut(500, function () {
             $(".swiper-slide img").css({"animation": "blur 0.6s 1", "animationFillMode": "forwards"});
             $(".login").fadeIn(600);
         });
     });
-    //-----------SubmitBtn Click-------------
-    $("#submit").click(function () { 
-        window.location.href = "main.html"
-     })
+    var myVue = new Vue({
+        el: ".login",
+        data: {
+            pageType: 0,
+            userName: "",
+            password: "",
+            password2: ""
+        },
+        methods: {
+            submit: function () { 
+                window.location.href = "main.html"
+            }
+        }
+    });
 });

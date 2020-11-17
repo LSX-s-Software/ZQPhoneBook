@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 text-center"><img v-bind:src="myInfo.avatarURL" id="avatar"></div>
+                    <div class="col-lg-12 text-center"><img v-bind:src="myInfo.avatarURL" id="avatar" v-bind:style="{cursor: onEdit?'pointer':'default'}"></div>
                     <div class="col-lg-12 text-center"><input type="text" class="labelL editable"
                             v-bind:disabled="!onEdit" v-model="myInfo.name" id="myName"></div>
                 </div>
