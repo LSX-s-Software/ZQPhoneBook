@@ -18,12 +18,12 @@
 </head>
 
 <body>
-    <img class="logo" src="src/img/LOGO1.png" alt="社团ABC">
+    <!-- <img class="logo" src="src/img/LOGO1.png" alt="社团ABC"> -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="src/img/0.jpeg" alt=""></div>
-            <div class="swiper-slide"><img src="src/img/1.jpeg" alt=""></div>
-            <div class="swiper-slide"><img src="src/img/2.jpeg" alt=""></div>
+            <div class="swiper-slide"><img src="src/img/1.png"></div>
+            <div class="swiper-slide"><img src="src/img/2.png"></div>
+            <div class="swiper-slide"><img src="src/img/3.png"></div>
         </div>
         <div class="controls">
             <button id="login" class="defaultBtn">登&nbsp;&nbsp;录</button>
@@ -44,10 +44,10 @@
             <span class="labelS" id="reg" v-on:click="pageType=!pageType">{{ pageType==0?"新用户注册":"登录已有帐户" }}</span>
         </div>
         <div style="text-align: center;">
-            <button id="submit" class="defaultBtn" v-on:click="submit" v-bind:disabled="username==''||password==''||pageType==1&&password!=password2">确认</button>
+            <button id="submit" class="defaultBtn" v-on:click="submit" v-bind:disabled="userName==''||password==''||pageType==1&&password!=password2">确认</button>
         </div>
     </div>
-    <footer>版权所有 © 2020 自强Studio 保留所有权利。</footer>
+    <footer>版权所有 © 2020 <a href="about.html">自强Studio社团ABC项目组</a> 保留所有权利。</footer>
 </body>
 
 </html>

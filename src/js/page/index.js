@@ -13,13 +13,13 @@ $(document).ready(function () {
             disableOnInteraction: false
         },
     });
+    mySwiper.slideToLoop(Math.floor(Math.random() * 3), 0);
     mySwiper.autoplay.start();
     //-----------LoginBtn Click--------------
     $("#login").click(function (e) { 
         e.preventDefault();
         mySwiper.autoplay.stop();
-        $("#login").fadeOut();
-        $(".logo").fadeOut(500, function () {
+        $("#login").fadeOut(500, function () {
             $(".swiper-slide img").css({"animation": "blur 0.6s 1", "animationFillMode": "forwards"});
             $(".login").fadeIn(600);
         });

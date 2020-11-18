@@ -50,14 +50,14 @@ $(document).ready(function () {
             myInfo: {
                 name: "王三三",
                 nickName: "鱼子酱",
-                avatarURL: "src/img/avatar.png",
-                manager: [true]
+                avatarURL: "src/img/avatar.png"
             },
             myClubs: [{
                 id: 0,
                 name: "自强Studio",
                 bgURL: "src/img/自强.png",
                 size: 500,
+                isManager: true,
                 hqs: [{
                     id: "0-0",
                     text: '部门 1',

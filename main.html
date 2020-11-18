@@ -73,7 +73,7 @@
                                         src="src/img/renewMember.png">更新成员</button>
                             </div>
                             <div class="right">
-                                <button class="mediumBtn" v-if="myInfo.manager[currentClubId]"
+                                <button class="mediumBtn" v-if="myClubs[currentClubId].isManager"
                                     v-on:click="listEditing=!listEditing">{{ listEditing?"完成":"编辑"}}</button>
                             </div>
                         </div>
