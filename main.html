@@ -25,10 +25,11 @@
 <body>
     <div class="mainContainer">
         <header>
-            <img src="src/img/LOGO1.png" id="logo">
+            <img src="src/img/LOGO1.png" id="logo" onclick="window.location.href='about.html'">
             <div class="headerCtrls">
                 <div class="searchMember">
-                    <input type="text" id="searchMember" placeholder="搜索成员"><img src="src/img/search.png" id="searchMemberBtn">
+                    <input type="text" id="searchMember" placeholder="搜索成员"><img src="src/img/search.png"
+                        id="searchMemberBtn">
                 </div>
                 <img v-bind:src="myInfo.avatarURL" id="myAvatar" onclick="window.location.href='me.html'">
             </div>
@@ -81,11 +82,31 @@
                     <!--列表-->
                     <div class="list" v-if="nodeId!=0">
                         <div class="list-item-group">
-                            <div class="list-item" v-for="item in currentList">
-                                <div class="list-item-title">{{ item.name }}</div>
+                            <div class="list-item" v-for="item in currentList.subHQList">
+                                <div class="list-item-left">
+                                    <span class="list-item-title">{{ item.name }}</span>
+                                </div>
                                 <div class="list-item-ctrls text-right">
                                     <span class="myIcon icon-edit" v-if="listEditing"></span>
                                     <span class="myIcon icon-delete" v-if="listEditing"></span>
+                                    <span class="myIcon icon-arrow"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item-group">
+                            <div class="list-item" v-for="item in currentList.members">
+                                <div class="list-item-left">
+                                    <img v-bind:src="item.avatarURL" class="list-item-avatar">
+                                    <div class="list-item-stack">
+                                        <span class="list-item-title">{{ item.name }}</span><br>
+                                        <span><img v-bind:src="item.gender=='男'?'src/img/male.png':'src/img/female.png'" alt=""></span>
+                                        <span>{{ item.school }}</span>
+                                    </div>
+                                </div>
+                                <div class="list-item-ctrls text-right">
+                                    <span class="myIcon icon-edit" v-if="listEditing"></span>
+                                    <span class="myIcon icon-delete" v-if="listEditing"></span>
+                                    <span class="list-item-subTitle">{{ item.membership }}</span>
                                     <span class="myIcon icon-arrow"></span>
                                 </div>
                             </div>
@@ -235,7 +256,8 @@
                     </div>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-lg-12 text-center">
-                            <button class="defaultBtn smallBtn" style="background-color:var(--highlightColor);"><img src="src/img/change.png">换届更新</button>
+                            <button class="defaultBtn smallBtn" style="background-color:var(--highlightColor);"><img
+                                    src="src/img/change.png">换届更新</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 14px;">

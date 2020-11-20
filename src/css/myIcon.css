@@ -53,3 +53,11 @@
 .icon-add {
     content: url(../img/add.png);
 }
+
+.icon-back {
+    content: url(../img/back.png);
+}
+
+.icon-back-white {
+    content: url(../img/back_white.png);
+}

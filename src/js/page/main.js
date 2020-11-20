@@ -28,25 +28,40 @@ $(document).ready(function () {
             currentId: 0,
             currentClubId: 0,
             listEditing: false,
-            currentList: [{
-                id: "0-0",
-                name: '部门 1'
-            },{
-                id: "0-1",
-                name: '部门 2'
-            },{
-                id: "0-2",
-                name: '部门 3'
-            },{
-                id: "0-3",
-                name: '部门 4'
-            },{
-                id: "0-4",
-                name: '部门 5'
-            },{
-                id: "0-5",
-                name: '部门 6'
-            }],
+            currentList: {
+                subHQList: [{
+                    id: "0-0",
+                    name: '部门 1'
+                }, {
+                    id: "0-1",
+                    name: '部门 2'
+                }, {
+                    id: "0-2",
+                    name: '部门 3'
+                }, {
+                    id: "0-3",
+                    name: '部门 4'
+                }],
+                members: [{
+                    name: "王三三",
+                    nickName: "鱼子酱",
+                    avatarURL: "src/img/avatar.png",
+                    gender: "女",
+                    birthday: "2000-05-22",
+                    hometown: "湖北省武汉市",
+                    university: "武汉大学",
+                    school: "计算机学院",
+                    grade: "2020（本）",
+                    schoolNumber: "2020123456789",
+                    phone: 12345678901,
+                    email: "1234567890@163.com",
+                    qq: 12345678,
+                    wechat: "wxid_qwertyxxx123456",
+                    dormBuilding: "C0",
+                    marrige: false,
+                    membership: "部长"
+                }]
+            },
             myInfo: {
                 name: "王三三",
                 nickName: "鱼子酱",
@@ -165,7 +180,7 @@ $(document).ready(function () {
                     template: 3
                 })
             },
-            renewMember: function (id) { 
+            renewMember: function (id) {
                 console.log("Renewing members at " + id)
                 myModal.show({
                     template: 4
