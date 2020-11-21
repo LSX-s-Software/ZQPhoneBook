@@ -289,6 +289,11 @@ header {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px var(--secondaryGray) solid;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    background-color: var(--secondaryGray);
 }
 
 .list-item .myIcon {
@@ -305,7 +310,11 @@ header {
     border-bottom: none;
 }
 
-.list-item .myIcon {
+.list-item-ctrls {
+    height: 1.6em;
+}
+
+.list-item-ctrls .myIcon {
     transform: scale(1.5);
     cursor: pointer;
 }
@@ -335,14 +344,14 @@ header {
     font-weight: bold;
 }
 
-.list-item-stack span:not(.list-item-title) {
+.list-item-stack span:last-child {
     font-size: small;
 }
 
 .list-item-stack span img {
     margin: 0;
-    width: 1.2em;
-    height: 1.2em;
+    width: 1em;
+    height: 1em;
 }
 
 .clubBGImgContainer .controls {
@@ -368,4 +377,55 @@ header {
 
 .clubBGImgContainer .controls .right button {
     background-color: var(--highlightColor);
+}
+
+.memberInfo {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 600px;
+    height: 375px;
+}
+
+.memberInfo-left {
+    width: 34px;
+}
+
+.memberInfo-right {
+    width: calc(100% - 34px);
+}
+
+.memberInfo-left, .memberInfo-top {
+    display: flex;
+    align-items: center;
+}
+
+.memberInfo-top {
+    height: 30%;
+    justify-content: space-between;
+    
+}
+
+.memberInfo-top .list-item-avatar {
+    height: 100%;
+    width: auto;
+}
+
+.memberInfo-bottom {
+    height: 70%;
+}
+
+.memberInfo .col-lg-5, .memberInfo .col-lg-6 {
+    border-bottom: 1px var(--secondaryGray) solid;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.memberInfo  .labelS {
+    font-weight: bold;
+    width: 2em;
+    color: var(--themeColor);
+    margin-left: 0;
 }

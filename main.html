@@ -94,12 +94,14 @@
                             </div>
                         </div>
                         <div class="list-item-group">
-                            <div class="list-item" v-for="item in currentList.members">
+                            <div class="list-item" v-for="(item, index) in currentList.members"
+                                v-on:click="showMemberInfo(index)">
                                 <div class="list-item-left">
                                     <img v-bind:src="item.avatarURL" class="list-item-avatar">
                                     <div class="list-item-stack">
                                         <span class="list-item-title">{{ item.name }}</span><br>
-                                        <span><img v-bind:src="item.gender=='男'?'src/img/male.png':'src/img/female.png'" alt=""></span>
+                                        <span><img v-bind:src="item.gender=='男'?'src/img/male.png':'src/img/female.png'"
+                                                alt=""></span>
                                         <span>{{ item.school }}</span>
                                     </div>
                                 </div>
@@ -157,6 +159,81 @@
                         <input type="text" id="inviteCode" placeholder="请输入社团邀请码" v-model="inviteCode"><br>
                         <button id="joinClub" class="defaultBtn largeBtn" v-on:click="joinClub"
                             v-bind:disabled="inviteCode==''">提交申请</button>
+                    </div>
+                </div>
+                <div class="myModal-dialog memberInfo" v-show="showMemberInfoDialog">
+                    <div class="memberInfo-left">
+                        <span class="myIcon icon-back" v-on:click="showMemberInfoDialog=false"
+                            style="cursor:pointer"></span>
+                    </div>
+                    <div class="memberInfo-right">
+                        <div class="memberInfo-top">
+                            <div class="list-item-left" style="height: 100%">
+                                <img v-bind:src="memberInfo.avatarURL" class="list-item-avatar">
+                                <div class="list-item-stack" style="text-align: left;">
+                                    <span class="list-item-title"
+                                        style="color:var(--highlightColor)">{{ memberInfo.name }}</span>
+                                    <span>
+                                        <img v-bind:src="memberInfo.gender=='男'?'src/img/male.png':'src/img/female.png'"
+                                            alt="">
+                                    </span><br>
+                                    <span>{{ memberInfo.membership }}</span>
+                                </div>
+                            </div>
+                            <div class="list-item-ctrls text-right" style="justify-self:flex-end;"
+                                v-if="myClubs[currentClubId].isManager">
+                                <span class="myIcon icon-edit"></span>
+                                <span class="myIcon icon-delete"></span>
+                            </div>
+                        </div>
+                        <div class="memberInfo-bottom">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <span class="labelS">昵称</span>{{ memberInfo.nickName }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">性别</span>{{ memberInfo.gender }}
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span class="labelS">手机</span>{{ memberInfo.phone }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">邮箱</span>{{ memberInfo.email }}
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span class="labelS">QQ</span>{{ memberInfo.qq }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">微信</span>{{ memberInfo.wechat }}
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span class="labelS">学校</span>{{ memberInfo.university }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">年级</span>{{ memberInfo.grade }}
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span class="labelS">学院</span>{{ memberInfo.school }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">学号</span>{{ memberInfo.schoolNumber }}
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span class="labelS">生日</span>{{ memberInfo.birthday }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">家乡</span>{{ memberInfo.hometown }}
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span class="labelS">宿舍楼</span>{{ memberInfo.dormBuilding }}
+                                    </div>
+                                    <div class="col-lg-6 offset-lg-1">
+                                        <span class="labelS">感情状态</span>{{ memberInfo.marriage ? '已有灵魂伴侣' : '单身' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

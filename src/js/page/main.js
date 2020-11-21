@@ -135,7 +135,9 @@ $(document).ready(function () {
             step: 1,
             clubName: "",
             clubDescription: "",
-            inviteCode: ""
+            inviteCode: "",
+            showMemberInfoDialog: true,
+            memberInfo: {}
         },
         mounted() {
             treeData[0].tags = [this.myClubs.length];
@@ -185,6 +187,11 @@ $(document).ready(function () {
                 myModal.show({
                     template: 4
                 })
+            },
+            showMemberInfo: function (index) { 
+                console.log("clicked:" + index);
+                this.memberInfo = this.currentList.members[index];
+                this.showMemberInfoDialog = true;
             }
         }
     });
