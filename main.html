@@ -45,7 +45,7 @@
                         <div class="container">
                             <div class="row" style="margin-top: 10%;">
                                 <div class="col-lg-12 text-center"><img v-bind:src="myInfo.avatarURL" id="avatar"></div>
-                                <div class="col-lg-12 text-center"><span class="labelL">{{ myInfo.name }}</span></div>
+                                <div class="col-lg-12 text-center"><span class="labelL">{{ getTimePeriod() + "好！" + myInfo.name.substr(-2,2) }}</span></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -94,12 +94,11 @@
                             </div>
                         </div>
                         <div class="list-item-group">
-                            <div class="list-item" v-for="(item, index) in currentList.members"
-                                v-on:click="showMemberInfo(index)">
+                            <div class="list-item" v-for="(item, index) in currentList.members" v-on:click="showMemberInfo(index)">
                                 <div class="list-item-left">
                                     <img v-bind:src="item.avatarURL" class="list-item-avatar">
                                     <div class="list-item-stack">
-                                        <span class="list-item-title">{{ item.name }}</span><br>
+                                        <span class="list-item-title">{{ item.name }}<small>{{ (item.id==myInfo.id?"（我）":"")}}</small></span><br>
                                         <span><img v-bind:src="item.gender=='男'?'src/img/male.png':'src/img/female.png'"
                                                 alt=""></span>
                                         <span>{{ item.school }}</span>
@@ -118,8 +117,9 @@
                 <!--创建社团-->
                 <div class="createClubContainer" v-if="show[1]">
                     <div class="clubBGImgContainer" v-if="step==1">
-                        <button id="uploadImg" class="pageCenter largeBtn"><img src="src/img/img.png">上传图片</button>
-                        <img src="src/img/joinClubBG.png" alt="背景图预览" id="imgPreview" class="clubBGImg">
+                        <button id="uploadImg" class="pageCenter largeBtn" onclick="$('#imgUploadInput').click()"><img src="src/img/img.png">上传图片</button>
+                        <input type="file" id="imgUploadInput" accept="image/*" onchange="clubBGImgChanged(this)">
+                        <img v-bind:src="clubBGImg" alt="背景图预览" id="imgPreview" class="clubBGImg">
                     </div>
                     <div class="basicInfo" v-if="step==1">
                         <span class="labelS"><b>社团名称</b></span><br>
@@ -257,12 +257,12 @@
             </div>
             <!--模版2-->
             <div class="myModal-message" v-if="template == 2">
-                <span class="labelS"><img
-                        v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
+                <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
                     {{ state[0] == "success" ? "社团创建成功" : "出现错误：" + errMsg[0] }}</span>
-                <span class="labelS"><img
-                        v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
-                    {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}</span>
+                <span class="labelS" v-if="state[1]!=''">
+                    <img v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
+                    {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}
+                </span>
             </div>
             <div class="myModal-buttons" v-if="template == 2">
                 <button class="defaultBtn mediumBtn" id="myModal-default"

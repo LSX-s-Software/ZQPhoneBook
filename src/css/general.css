@@ -133,6 +133,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     border: 2px var(--themeColor) solid;
 }
 
+input[type="file"] {
+    display: none;
+}
+
 .forstedGlass {
     background: inherit;
     filter: blur(15px);

@@ -43,6 +43,7 @@ $(document).ready(function () {
                     name: '部门 4'
                 }],
                 members: [{
+                    id: "123",
                     name: "王三三",
                     nickName: "鱼子酱",
                     avatarURL: "src/img/avatar.png",
@@ -63,6 +64,7 @@ $(document).ready(function () {
                 }]
             },
             myInfo: {
+                id: "123",
                 name: "王三三",
                 nickName: "鱼子酱",
                 avatarURL: "src/img/avatar.png"
@@ -135,8 +137,9 @@ $(document).ready(function () {
             step: 1,
             clubName: "",
             clubDescription: "",
+            clubBGImg: "src/img/joinClubBG.png",
             inviteCode: "",
-            showMemberInfoDialog: true,
+            showMemberInfoDialog: false,
             memberInfo: {}
         },
         mounted() {
@@ -161,8 +164,50 @@ $(document).ready(function () {
         },
         //----------按钮点击事件-------------
         methods: {
+            getTimePeriod: function () {
+                var now = new Date()
+                var hour = now.getHours()
+                if (hour < 6) { return "凌晨" }
+                else if (hour < 9) { return "早上" }
+                else if (hour < 12) { return "上午" }
+                else if (hour < 14) { return "中午" }
+                else if (hour < 17) { return "下午" }
+                else if (hour < 19) { return "傍晚" }
+                else { return "晚上" }
+            },
             createClub: function () {
-                this.step = 2;
+                var that = this;
+                var formFile = new FormData();
+                formFile.append("img", this.clubBGImg);
+                formFile.append("Token", "");
+                formFile.append("name", this.clubName);
+                formFile.append("description", this.clubDescription);
+                $.ajax({
+                    url: "/clubs/addClub",
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: formFile,
+                    success: function (data) {
+                        if (data.result == "success") {
+                            that.step = 2;
+                        } else {
+                            myModal.show({
+                                template: 2,
+                                state: ["fail", ""],
+                                errMsg: [data.result, ""]
+                            })
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        myModal.show({
+                            template: 2,
+                            state: ["fail", ""],
+                            errMsg: [textStatus + ":" + jqXHR.statusText + " " + errorThrown, ""]
+                        })
+                    }
+                });
             },
             joinClub: function () {
                 myModal.show({
@@ -188,7 +233,7 @@ $(document).ready(function () {
                     template: 4
                 })
             },
-            showMemberInfo: function (index) { 
+            showMemberInfo: function (index) {
                 console.log("clicked:" + index);
                 this.memberInfo = this.currentList.members[index];
                 this.showMemberInfoDialog = true;
@@ -254,4 +299,9 @@ function addIcon(target) {
             addIcon(tar.nodes)
         }
     })
+}
+
+function clubBGImgChanged(obj) {
+    console.log(obj.files[0]);
+    myVue.clubBGImg = window.URL.createObjectURL(obj.files[0]);
 }
