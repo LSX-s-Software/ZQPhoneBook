@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 
 <head>
     <meta charset="utf-8">
@@ -107,7 +107,7 @@
                                 <div class="list-item-ctrls text-right">
                                     <span class="myIcon icon-edit" v-if="listEditing"></span>
                                     <span class="myIcon icon-delete" v-if="listEditing"></span>
-                                    <span class="list-item-subTitle">{{ item.membership }}</span>
+                                    <span class="list-item-subTitle">{{ item.membership.split("-").pop() }}</span>
                                     <span class="myIcon icon-arrow"></span>
                                 </div>
                             </div>
@@ -161,7 +161,8 @@
                             v-bind:disabled="inviteCode==''">提交申请</button>
                     </div>
                 </div>
-                <div class="myModal-dialog memberInfo" v-show="showMemberInfoDialog">
+                <!--成员详细信息-->
+                <div class="myModal-dialog memberInfo" v-show="showMemberInfoDialog" v-if="memberInfo!=null">
                     <div class="memberInfo-left">
                         <span class="myIcon icon-back" v-on:click="showMemberInfoDialog=false"
                             style="cursor:pointer"></span>
@@ -174,13 +175,12 @@
                                     <span class="list-item-title"
                                         style="color:var(--highlightColor)">{{ memberInfo.name }}</span>
                                     <span>
-                                        <img v-bind:src="memberInfo.gender=='男'?'src/img/male.png':'src/img/female.png'"
-                                            alt="">
+                                        <img v-bind:src="memberInfo.gender=='男'?'src/img/male.png':'src/img/female.png'">
                                     </span><br>
                                     <span>{{ memberInfo.membership }}</span>
                                 </div>
                             </div>
-                            <div class="list-item-ctrls text-right" style="justify-self:flex-end;"
+                            <div class="list-item-ctrls text-right" style="justify-self:flex-end;min-width:4em;"
                                 v-if="myClubs[currentClubId].isManager">
                                 <span class="myIcon icon-edit"></span>
                                 <span class="myIcon icon-delete"></span>

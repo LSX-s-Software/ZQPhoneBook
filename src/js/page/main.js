@@ -60,7 +60,7 @@ $(document).ready(function () {
                     wechat: "wxid_qwertyxxx123456",
                     dormBuilding: "C0",
                     marrige: false,
-                    membership: "部长"
+                    membership: "自强Studio-技术中心-产品组-部长"
                 }]
             },
             myInfo: {
@@ -140,7 +140,7 @@ $(document).ready(function () {
             clubBGImg: "src/img/joinClubBG.png",
             inviteCode: "",
             showMemberInfoDialog: false,
-            memberInfo: {}
+            memberInfo: null
         },
         mounted() {
             treeData[0].tags = [this.myClubs.length];

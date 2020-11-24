@@ -16,11 +16,11 @@ $(document).ready(function () {
     mySwiper.slideToLoop(Math.floor(Math.random() * 3), 0);
     mySwiper.autoplay.start();
     //-----------LoginBtn Click--------------
-    $("#login").click(function (e) { 
+    $("#login").click(function (e) {
         e.preventDefault();
         mySwiper.autoplay.stop();
         $("#login").fadeOut(500, function () {
-            $(".swiper-slide img").css({"animation": "blur 0.6s 1", "animationFillMode": "forwards"});
+            $(".swiper-slide img").css({ "animation": "blur 0.6s 1", "animationFillMode": "forwards" });
             $(".login").fadeIn(600);
         });
     });
@@ -30,11 +30,81 @@ $(document).ready(function () {
             pageType: 0,
             userName: "",
             password: "",
-            password2: ""
+            password2: "",
+            usernameWarning: false
         },
         methods: {
-            submit: function () { 
+            submit: function () {
                 window.location.href = "main.html"
+                $.ajax({
+                    type: "POST",
+                    url: this.pageType == 0 ? "/login" : "/register",
+                    data: {
+                        username: this.userName,
+                        password: this.password
+                    },
+                    success: function (response) {
+                        if (this.pageType == 0) {
+                            switch (response) {
+                                case "success":
+                                    window.location.href = "main.html"
+                                    break;
+                                case "username":
+                                    alert("用户不存在");
+                                    break;
+                                case "password":
+                                    alert("密码错误");
+                                    break;
+                                default:
+                                    alert(response);
+                                    break;
+                            }
+                        } else {
+                            switch (response) {
+                                case "success":
+                                    alert("注册成功");
+                                    window.location.href = "me.html?from=register"
+                                    break;
+                                default:
+                                    alert(response);
+                                    break;
+                            }
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert(textStatus + ":" + jqXHR.statusText + " " + errorThrown);
+                    }
+                });
+            },
+            check: function () {
+                if (this.pageType == 0 || this.userName == "") return
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/register/check",
+                    data: {
+                        username: that.userName
+                    },
+                    success: function (response) {
+                        switch (response) {
+                            case "userNotExist":
+                                console.log("用户不存在");
+                                that.usernameWarning = false
+                                break;
+                            case "userExisted":
+                                console.log("用户已存在");
+                                that.usernameWarning = true
+                                break;
+                            default:
+                                console.log(response);
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                    }
+                });
             }
         }
     });

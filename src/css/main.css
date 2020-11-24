@@ -16,8 +16,6 @@ body {
     background-color: white;
     padding: 0;
     overflow: hidden;
-    min-width: 630px;
-    min-height: 500px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
 }
 
@@ -304,6 +302,7 @@ header {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
+    width: max-content;
 }
 
 .list-item:last-child {

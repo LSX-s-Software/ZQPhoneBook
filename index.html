@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 
 <head>
     <meta charset="utf-8">
@@ -33,18 +33,21 @@
     <div class="login pageCenter">
         <h1>{{ pageType==0?"登 录":"注 册" }}</h1>
         <span class="labelM">{{ pageType==0?"":"新" }}用户名</span><br>
-        <input type="email" id="username" placeholder="请输入用户名" v-model="userName"><br>
+        <input type="email" id="username" placeholder="请输入用户名" v-model="userName" v-on:blur="check" v-bind:class="{ warning:usernameWarning }" v-on:change="usernameWarning=false"><br>
+        <span v-if="usernameWarning" class="warning">该用户名已存在</span><br v-if="usernameWarning">
         <span class="labelM">{{ pageType==0?"":"新" }}密码</span><br>
         <input type="password" id="password" placeholder="请输入密码" v-model="password"><br>
         <div v-if="pageType==1">
             <span class="labelM">确认密码</span><br>
-            <input type="password" id="password2" placeholder="请再次输入密码" v-model="password2"><br></div>
+            <input type="password" id="password2" placeholder="请再次输入密码" v-model="password2" v-bind:class="{ warning:password2!=''&&password!=password2 }"><br>
+            <span class="warning" v-if="password2!=''&&password!=password2">两次输入的密码不一致</span>
+        </div>
         <div class="links">
             <span class="labelS" id="forgot">忘记密码？</span>
             <span class="labelS" id="reg" v-on:click="pageType=!pageType">{{ pageType==0?"新用户注册":"登录已有帐户" }}</span>
         </div>
         <div style="text-align: center;">
-            <button id="submit" class="defaultBtn" v-on:click="submit" v-bind:disabled="userName==''||password==''||pageType==1&&password!=password2">确认</button>
+            <button id="submit" class="defaultBtn" v-on:click="submit" v-bind:disabled="userName==''||password==''||pageType==1&&password!=password2||usernameWarning">确认</button>
         </div>
     </div>
     <footer>版权所有 © 2020 <a href="about.html">自强Studio社团ABC项目组</a> 保留所有权利。</footer>

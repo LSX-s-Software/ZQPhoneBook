@@ -125,3 +125,12 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+input.warning {
+    border-color: red;
+}
+
+span.warning {
+    color: red;
+    margin: -8px 8px;
+}
