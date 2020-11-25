@@ -99,7 +99,7 @@
                                     <img v-bind:src="item.avatarURL" class="list-item-avatar">
                                     <div class="list-item-stack">
                                         <span class="list-item-title">{{ item.name }}<small>{{ (item.id==myInfo.id?"（我）":"")}}</small></span><br>
-                                        <span><img v-bind:src="item.gender=='男'?'src/img/male.png':'src/img/female.png'"
+                                        <span><img v-bind:src="item.gender==0?'src/img/male.png':'src/img/female.png'"
                                                 alt=""></span>
                                         <span>{{ item.school }}</span>
                                     </div>
@@ -175,7 +175,7 @@
                                     <span class="list-item-title"
                                         style="color:var(--highlightColor)">{{ memberInfo.name }}</span>
                                     <span>
-                                        <img v-bind:src="memberInfo.gender=='男'?'src/img/male.png':'src/img/female.png'">
+                                        <img v-bind:src="memberInfo.gender==0?'src/img/male.png':'src/img/female.png'">
                                     </span><br>
                                     <span>{{ memberInfo.membership }}</span>
                                 </div>
@@ -193,7 +193,7 @@
                                         <span class="labelS">昵称</span>{{ memberInfo.nickName }}
                                     </div>
                                     <div class="col-lg-6 offset-lg-1">
-                                        <span class="labelS">性别</span>{{ memberInfo.gender }}
+                                        <span class="labelS">性别</span>{{ memberInfo.gender==0?'男':'女' }}
                                     </div>
                                     <div class="col-lg-5">
                                         <span class="labelS">手机</span>{{ memberInfo.phone }}

@@ -32,9 +32,9 @@
     </div>
     <div class="login pageCenter">
         <h1>{{ pageType==0?"登 录":"注 册" }}</h1>
-        <span class="labelM">{{ pageType==0?"":"新" }}用户名</span><br>
-        <input type="email" id="username" placeholder="请输入用户名" v-model="userName" v-on:blur="check" v-bind:class="{ warning:usernameWarning }" v-on:change="usernameWarning=false"><br>
-        <span v-if="usernameWarning" class="warning">该用户名已存在</span><br v-if="usernameWarning">
+        <span class="labelM">{{ pageType==0?"邮箱地址":"新用户" }}</span><br>
+        <input type="email" id="username" placeholder="请输入邮箱地址" v-model="userName" v-on:blur="check" v-bind:class="{ warning:usernameWarning }" v-on:change="usernameWarning=false"><br>
+        <span v-if="usernameWarning" class="warning">该邮箱已被占用</span><br v-if="usernameWarning">
         <span class="labelM">{{ pageType==0?"":"新" }}密码</span><br>
         <input type="password" id="password" placeholder="请输入密码" v-model="password"><br>
         <div v-if="pageType==1">

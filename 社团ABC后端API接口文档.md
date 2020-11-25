@@ -18,7 +18,7 @@
 
 ### 发送
 
-- username: [String]
+- username: [String] 邮箱地址
 - password: [String]
 
 ### 返回
@@ -38,7 +38,7 @@
 
 ### 发送
 
-- username: [String]
+- username: [String] 邮箱地址
 - password: [String]
 
 ### 返回
@@ -56,13 +56,13 @@
 
 ### 发送
 
-- username: [String]
+- username: [String] 邮箱地址
 
 ### 返回
 
 - result: [String]
   - 用户不存在("userNotExist")
-  - 用户已存在("userExisted")
+  - 邮箱地址已被占用("userExisted")
   - 内部错误
 
 ## 忘记密码
@@ -92,7 +92,7 @@
   - name: [String] 真实姓名
   - 【详细】nickName: [String] 昵称
   - avatarURL: [String] 头像图片URL
-  - 【详细】gender: [String] 性别("男"/"女")
+  - 【详细】gender: [Int] 性别(0: 男,1: 女)
   - 【详细】birthday: [String] 生日（yyyy年M月d日)
   - 【详细】hometown: [String] 家乡
   - 【详细】university: [String] 学校
@@ -115,11 +115,11 @@
 ### 发送
 
 - Token: [String]
--  myInfo: [Object]
+- avatar: [File-Image] 头像图片
+- myInfo: [Object]
   - name: [String] 真实姓名
   - nickName: [String] 昵称
-  - avatarURL: [String] 头像图片URL
-  - gender: [String] 性别("男"/"女")
+  - gender: [Int] 性别(0: 男,1: 女)
   - birthday: [String] 生日（yyyy年M月d日)
   - hometown: [String] 家乡
   - university: [String] 学校
@@ -192,7 +192,7 @@
   - name: [String] 真实姓名
   - nickName: [String] 昵称
   - avatarURL: [String] 头像图片URL
-  - gender: [String] 性别("男"/"女")
+  - gender: [Int] 性别(0: 男,1: 女)
   - birthday: [String] 生日（yyyy年M月d日)
   - hometown: [String] 家乡
   - university: [String] 学校
