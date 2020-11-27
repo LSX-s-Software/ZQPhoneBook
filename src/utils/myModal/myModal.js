@@ -8,7 +8,8 @@ $(document).ready(function () {
             state: ["", ""],
             errMsg: ["", ""],
             clubName: "",
-            HQName: ""
+            HQName: "",
+            inviteCode: ""
         },
         mounted() {
             window.vue = this
@@ -18,8 +19,23 @@ $(document).ready(function () {
                 $('#tree').treeview('selectNode', [0]);
                 this.close()
             },
-            retry: function () { console.error("Method retry Not Implemented.") },
-            close: function () { myModal.close() }
+            retry: function () {
+                switch (this.template) {
+                    case 1:
+                        this.close();
+                        myVue.joinClub();
+                    case 2:
+                        this.close();
+                        myVue.createClub();
+                        break;
+                    default:
+                        break;
+                }
+            },
+            close: function () { this.show = false },
+            getInviteCode: function () {
+                myVue.getInviteCode();
+            }
         }
     });
 });

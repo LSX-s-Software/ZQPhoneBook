@@ -60,18 +60,18 @@
                         <input type="file" id="imgUploadInput" accept="image/*" onchange="avatarChanged(this)">
                     </div>
                     <div class="col-lg-12 text-center">
-                        <input type="text" class="labelL editable" v-bind:disabled="!onEdit" v-model="myInfo.name" id="myName" placeholder="真实姓名">
+                        <input type="text" class="labelL editable" v-bind:readonly="!onEdit" v-model="myInfo.name" id="myName" placeholder="真实姓名">
                     </div>
                 </div>
                 <div class="row myInfo">
                     <div class="col-lg-5">
                         <span class="labelS">昵称</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.nickName">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.nickName">
                     </div>
                     <!-- <span class="edit" data-target="" v-if=""><span class="myIcon icon-edit"></span>编辑</span> -->
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">性别</span>
-                        <input type="text" class="editable" v-show="!onEdit" v-bind:disabled="!onEdit" v-model="myInfo.gender==0?'男':'女'">
+                        <input type="text" class="editable" v-show="!onEdit" v-bind:readonly="!onEdit" v-model="myInfo.gender==0?'男':'女'">
                         <div class="segment" v-show="onEdit">
                             <div v-bind:class="{ selected: myInfo.gender!=1 }" v-on:click="myInfo.gender=0">男</div>
                             <div v-bind:class="{ selected: myInfo.gender==1 }" v-on:click="myInfo.gender=1">女</div>
@@ -79,49 +79,49 @@
                     </div>
                     <div class="col-lg-5">
                         <span class="labelS">手机</span>
-                        <input type="tel" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.phone" maxlength="11">
+                        <input type="tel" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.phone" maxlength="11">
                     </div>
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">邮箱</span>
-                        <input type="email" class="editable" disabled v-model="myInfo.email">
+                        <input type="email" class="editable" readonly v-model="myInfo.email">
                     </div>
                     <div class="col-lg-5">
                         <span class="labelS">QQ</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.qq">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.qq">
                     </div>
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">微信</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.wechat">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.wechat">
                     </div>
                     <div class="col-lg-5">
                         <span class="labelS">学校</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.university">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.university">
                     </div>
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">年级</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.grade">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.grade">
                     </div>
                     <div class="col-lg-5">
                         <span class="labelS">学院</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.school">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.school">
                     </div>
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">学号</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.schoolNumber">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.schoolNumber">
                     </div>
                     <div class="col-lg-5">
                         <span class="labelS">生日</span>
-                        <input type="date" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.birthday"></div>
+                        <input type="date" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.birthday"></div>
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">家乡</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.hometown"></div>
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.hometown"></div>
                     <div class="col-lg-5">
                         <span class="labelS">宿舍楼</span>
-                        <input type="text" class="editable" v-bind:disabled="!onEdit" v-model="myInfo.dormBuilding">
+                        <input type="text" class="editable" v-bind:readonly="!onEdit" v-model="myInfo.dormBuilding">
                     </div>
                     <div class="col-lg-5 offset-lg-2">
                         <span class="labelS">感情状态</span>
-                            <input type="text" class="editable" v-show="!onEdit" v-model="myInfo.marriage?'已有灵魂伴侣':'单身'" disabled>
+                            <input type="text" class="editable" v-show="!onEdit" v-model="myInfo.marriage?'已有灵魂伴侣':'单身'" readonly>
                             <div class="segment" v-show="onEdit">
                                 <div v-bind:class="{ selected: myInfo.marriage }" v-on:click="myInfo.marriage=true">非单身</div>
                                 <div v-bind:class="{ selected: !myInfo.marriage }" v-on:click="myInfo.marriage=false">单身</div>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <button class="largeBtn defaultBtn" v-bind:disabled="!(myInfo.phone&&myInfo.name)" v-on:click="onEdit=!onEdit">{{ onEdit ? "完成" : "编辑" }}</button>
+                        <button class="largeBtn defaultBtn" v-bind:readonly="!(myInfo.phone&&myInfo.name)" v-on:click="onEdit=!onEdit">{{ onEdit ? "完成" : "编辑" }}</button>
                     </div>
                 </div>
             </div>

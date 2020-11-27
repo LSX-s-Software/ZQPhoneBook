@@ -110,9 +110,13 @@ header {
     margin: 0 !important;
 }
 
-.editable:disabled {
+.editable:read-only {
     background-color: transparent;
-    color: var(--darkerGray) !important;
+    color: var(--darkerGray);
+}
+
+.editable:read-only:focus {
+    border-color: transparent;
 }
 
 #myName {

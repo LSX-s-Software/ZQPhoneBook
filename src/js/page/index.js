@@ -35,7 +35,6 @@ $(document).ready(function () {
         },
         methods: {
             submit: function () {
-                window.location.href = "me.html?from=register&email=" + this.userName
                 $.ajax({
                     type: "POST",
                     url: this.pageType == 0 ? "/login" : "/register",

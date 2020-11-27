@@ -132,8 +132,8 @@
                         </div>
                     </div>
                     <div class="importMember" v-if="step==2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="229.7" height="56.7" viewBox="0 0 344.5 85"><text
-                                transform="translate(17 78)" fill="#4fce9f" font-size="30" font-weight="700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="229.7" height="56.7" viewBox="0 0 344.5 85">
+                            <text transform="translate(17 78)" fill="#4fce9f" font-size="30" font-weight="700">
                                 <tspan x="0" y="0">Last Step</tspan>
                             </text><text transform="translate(0 35)" fill="#4fce9f" font-size="40" font-weight="700">
                                 <tspan x="0" y="0">最后一步</tspan>
@@ -144,12 +144,14 @@
                                 stroke-width="1" />
                         </svg>
                         <div class="center">
-                            <button class="x-largeBtn defaultBtn" id="importMember"><img
-                                    src="src/img/import.png">从Excel导入</button>
+                            <button class="x-largeBtn defaultBtn" id="importMember" onclick="$('#uploadExcel').click()"><img src="src/img/import.png">从Excel导入</button>
+                            <input type="file" id="uploadExcel" accept=".xls,.xlsx" onchange="excelFileChanged(this)">
+                        </div><br>
+                        <div>
+                            <span class="labelM">上传Excel文件的格式示例</span>
+                            <img src="" alt="">
                         </div>
-                        <div class="memberPreview">
-
-                        </div>
+                        <!-- <div class="memberPreview"></div> -->
                     </div>
                 </div>
                 <!--加入社团-->
@@ -265,7 +267,7 @@
                 </span>
             </div>
             <div class="myModal-buttons" v-if="template == 2">
-                <button class="defaultBtn mediumBtn" id="myModal-default"
+                <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="getInviteCode"
                     v-if="state[0] == 'success' && state[1] == 'success'">获取成员邀请码</button>
                 <button class="defaultBtn mediumBtn" id="myModal-retry" v-if="state[0] == 'fail' || state[1] == 'fail'"
                     v-on:click="retry">重试</button>
@@ -343,6 +345,19 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!--模版5-->
+            <div class="myModal-message" v-if="template == 5">
+                <span class="labelM">
+                    <img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">本批次成员邀请码
+                    <span class="labelS" style="font-weight: lighter;margin:0">快发送给你的社团成员吧</span>
+                </span>
+                <input type="text" v-model="inviteCode" readonly style="text-align: center;font-size: larger;font-weight: bold;margin: 0;">
+                <span class="labelS" style="font-size: smaller;color: var(--red);margin-bottom: 8px;">此邀请码只会显示一次</span>
+            </div>
+            <div class="myModal-buttons" v-if="template == 5">
+                <button class="defaultBtn mediumBtn" id="myModal-default" v-if="state[0] == 'success'"
+                    v-on:click="backToMyClub">返回我的社团</button>
             </div>
         </div>
     </div>

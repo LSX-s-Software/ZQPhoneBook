@@ -138,6 +138,7 @@ $(document).ready(function () {
             clubName: "",
             clubDescription: "",
             clubBGImg: "src/img/joinClubBG.png",
+            newClubId: "",
             inviteCode: "",
             showMemberInfoDialog: false,
             memberInfo: null
@@ -191,6 +192,7 @@ $(document).ready(function () {
                     success: function (data) {
                         if (data.result == "success") {
                             that.step = 2;
+                            that.newClubId = data.id
                         } else {
                             myModal.show({
                                 template: 2,
@@ -210,12 +212,51 @@ $(document).ready(function () {
                 });
             },
             joinClub: function () {
-                myModal.show({
-                    template: 1,
-                    state: ["success", ""],
-                    errMsg: ["", ""],
-                    clubName: "自强Studio"
-                })
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/clubs/getInviteCode",
+                    data: {
+                        Token: "",
+                        id: this.newClubId
+                    },
+                    success: function (response) {
+                        var msg = "";
+                        switch (response) {
+                            case "success":
+                            that.myClubs.push(response.myClubs);
+                                myModal.show({
+                                    template: 1,
+                                    state: ["success", ""],
+                                    errMsg: ["", ""],
+                                    clubName: response.myClubs.name
+                                });
+                                return
+                            case "invalidCode":
+                                msg = "邀请码无效";
+                                break;
+                            case "accessDenied":
+                                msg = "邀请码有效，但您不属于此社团";
+                                break;
+                            default:
+                                msg = response.result;
+                                break;
+                        }
+                        myModal.show({
+                            template: 1,
+                            state: ["fail", ""],
+                            errMsg: [msg, ""]
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        myModal.show({
+                            template: 1,
+                            state: ["fail", ""],
+                            errMsg: [textStatus + ":" + jqXHR.statusText + " " + errorThrown, ""]
+                        });
+                    }
+                });
             },
             cardClicked: function (index) {
                 this.nodeId = index
@@ -237,6 +278,44 @@ $(document).ready(function () {
                 console.log("clicked:" + index);
                 this.memberInfo = this.currentList.members[index];
                 this.showMemberInfoDialog = true;
+            },
+            getInviteCode: function () {
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/clubs/getInviteCode",
+                    data: {
+                        Token: "",
+                        id: this.newClubId
+                    },
+                    success: function (response) {
+                        switch (response) {
+                            case "success":
+                                myModalVue.inviteCode = response.inviteCode;
+                                myModal.show({
+                                    template: 5,
+                                    state: ["success", ""]
+                                });
+                                that.step = 1;
+                                break;
+                            default:
+                                myModal.show({
+                                    template: 2,
+                                    state: ["success", "fail"],
+                                    errMsg: ["", response.result]
+                                });
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        myModal.show({
+                            template: 2,
+                            state: ["success", "fail"],
+                            errMsg: ["", textStatus + ":" + jqXHR.statusText + " " + errorThrown]
+                        });
+                    }
+                });
             }
         }
     });
@@ -304,4 +383,43 @@ function addIcon(target) {
 function clubBGImgChanged(obj) {
     console.log(obj.files[0]);
     myVue.clubBGImg = window.URL.createObjectURL(obj.files[0]);
+}
+
+function excelFileChanged(obj) {
+    console.log(obj.files[0]);
+    var excelFile = window.URL.createObjectURL(obj.files[0]);
+    var formFile = new FormData();
+    formFile.append("Token", "");
+    formFile.append("id", myVue.newClubId);
+    formFile.append("memberListFile", excelFile)
+    $.ajax({
+        url: "/clubs/importMember",
+        method: "POST",
+        processData: false,
+        contentType: false,
+        data: formFile,
+        success: function (data) {
+            if (data.result == "success") {
+                myModal.show({
+                    template: 2,
+                    state: ["success", "success"],
+                    errMsg: ["", ""]
+                })
+            } else {
+                myModal.show({
+                    template: 2,
+                    state: ["success", "fail"],
+                    errMsg: ["", data.result]
+                })
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR);
+            myModal.show({
+                template: 2,
+                state: ["success", "fail"],
+                errMsg: ["", textStatus + ":" + jqXHR.statusText + " " + errorThrown]
+            })
+        }
+    });
 }
