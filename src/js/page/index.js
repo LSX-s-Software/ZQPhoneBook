@@ -44,7 +44,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         if (this.pageType == 0) {
-                            switch (response) {
+                            switch (response.result) {
                                 case "success":
                                     window.location.href = "main.html"
                                     break;
@@ -55,17 +55,18 @@ $(document).ready(function () {
                                     alert("密码错误");
                                     break;
                                 default:
-                                    alert(response);
+                                    alert(response.result);
                                     break;
                             }
                         } else {
                             switch (response) {
                                 case "success":
                                     alert("注册成功");
+                                    localStorage.setItem("Token", response.Token);
                                     window.location.href = "me.html?from=register&email=" + this.userName;
                                     break;
                                 default:
-                                    alert(response);
+                                    alert(response.result);
                                     break;
                             }
                         }
@@ -86,7 +87,7 @@ $(document).ready(function () {
                         username: that.userName
                     },
                     success: function (response) {
-                        switch (response) {
+                        switch (response.result) {
                             case "userNotExist":
                                 console.log("用户不存在");
                                 that.usernameWarning = false
@@ -96,7 +97,7 @@ $(document).ready(function () {
                                 that.usernameWarning = true
                                 break;
                             default:
-                                console.log(response);
+                                console.log(response.result);
                                 break;
                         }
                     },

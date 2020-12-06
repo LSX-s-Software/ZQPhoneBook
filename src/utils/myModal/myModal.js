@@ -43,7 +43,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/addHQ",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         name: this.HQName,
                         id: this.param.id
                     },
@@ -75,7 +75,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/editHQ",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         name: this.HQName,
                         id: this.param.id
                     },

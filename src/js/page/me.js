@@ -1,9 +1,11 @@
+if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var queryString = window.location.search.split("&");
 var myVue;
 $(document).ready(function () {
     myVue = new Vue({
         el: ".mainContainer",
         data: {
+            Token: localStorage.getItem("Token"),
             onEdit: false,
             myInfo: {
                 name: "",
@@ -39,16 +41,16 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/userInfo/getMyInfo",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         detail: true
                     },
                     success: function (response) {
-                        switch (response) {
+                        switch (response.result) {
                             case "success":
                                 that.myInfo = response.myInfo;
                                 break;
                             default:
-                                alert(response);
+                                alert(response.result);
                                 break;
                         }
                     },
@@ -92,7 +94,7 @@ $(document).ready(function () {
                         contentType: false,
                         data: formFile,
                         success: function (response) {
-                            switch (response) {
+                            switch (response.result) {
                                 case "success":
                                     alert("个人信息编辑成功");
                                     if (that.fromReg) {
@@ -100,7 +102,7 @@ $(document).ready(function () {
                                     }
                                     break;
                                 default:
-                                    alert(response);
+                                    alert(response.result);
                                     that.onEdit = true;
                                     break;
                             }

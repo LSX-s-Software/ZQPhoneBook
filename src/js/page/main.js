@@ -1,3 +1,4 @@
+if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var treeData = [
     {
         text: '我的社团',
@@ -23,6 +24,7 @@ $(document).ready(function () {
     myVue = new Vue({
         el: ".mainContainer",
         data: {
+            Token: localStorage.getItem("Token"),
             show: [true, false, false],
             nodeId: 0, //当前选中的treeview节点
             currentClubIndex: 0, //当前选中的社团的序号
@@ -81,22 +83,23 @@ $(document).ready(function () {
             memberInfo: null
         },
         mounted() {
+            if (this.Token == undefined) return;
             var that = this;
             //获取个人信息
             $.ajax({
                 type: "POST",
                 url: "/userInfo/getMyInfo",
                 data: {
-                    Token: "",
+                    Token: this.Token,
                     detail: false
                 },
                 success: function (response) {
-                    switch (response) {
+                    switch (response.result) {
                         case "success":
                             that.myInfo = response.myInfo;
                             break;
                         default:
-                            alert(response);
+                            alert(response.result);
                             break;
                     }
                 },
@@ -128,7 +131,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/userInfo/myClubs",
                 data: {
-                    Token: ""
+                    Token: this.Token
                 },
                 success: function (response) {
                     switch (response.result) {
@@ -287,14 +290,14 @@ $(document).ready(function () {
                 var that = this;
                 $.ajax({
                     type: "POST",
-                    url: "/clubs/getInviteCode",
+                    url: "/clubs/join",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         id: this.newClubId
                     },
                     success: function (response) {
                         var msg = "";
-                        switch (response) {
+                        switch (response.result) {
                             case "success":
                                 that.myClubs.push(response.myClubs);
                                 myModal.show({
@@ -362,11 +365,11 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/getInviteCode",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         id: this.newClubId
                     },
                     success: function (response) {
-                        switch (response) {
+                        switch (response.result) {
                             case "success":
                                 myModalVue.inviteCode = response.inviteCode;
                                 myModal.show({
@@ -401,7 +404,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/getHQInfo",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         id: id
                     },
                     success: function (response) {
@@ -412,7 +415,7 @@ $(document).ready(function () {
                                 that.currentHQId = id;
                                 return true;
                             default:
-                                alert(response);
+                                alert(response.result);
                                 return false;
                         }
                     },
@@ -438,7 +441,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: type == 1 ? "/clubs/deleteHQ" : "/clubs/deleteMember",
                     data: {
-                        Token: "",
+                        Token: this.Token,
                         id: id1,
                         memberId: id2
                     },
