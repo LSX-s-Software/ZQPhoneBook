@@ -87,6 +87,10 @@ button:hover {
     filter: brightness(1.1);
 }
 
+button:active {
+    filter: brightness(0.9);
+}
+
 button:disabled {
     filter: grayscale(1);
     cursor: not-allowed;

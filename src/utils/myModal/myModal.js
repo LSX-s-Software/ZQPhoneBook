@@ -9,7 +9,8 @@ $(document).ready(function () {
             errMsg: ["", ""],
             clubName: "",
             HQName: "",
-            inviteCode: ""
+            inviteCode: "",
+            param: null
         },
         mounted() {
             window.vue = this
@@ -35,6 +36,75 @@ $(document).ready(function () {
             close: function () { this.show = false },
             getInviteCode: function () {
                 myVue.getInviteCode();
+            },
+            addHQ: function () {
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/clubs/addHQ",
+                    data: {
+                        Token: "",
+                        name: this.HQName,
+                        id: this.param.id
+                    },
+                    success: function (response) {
+                        switch (response.result) {
+                            case "success":
+                                myModal.show({
+                                    template: 2,
+                                    state: ["success"]
+                                })
+                                break;
+                            default:
+                                myModal.show({
+                                    template: 2,
+                                    state: ["fail"],
+                                    errMsg: response.result
+                                })
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown, "");
+                    }
+                });
+            },
+            edit: function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/clubs/editHQ",
+                    data: {
+                        Token: "",
+                        name: this.HQName,
+                        id: this.param.id
+                    },
+                    success: function (response) {
+                        switch (response.result) {
+                            case "success":
+                                myModal.show({
+                                    template: 2,
+                                    state: ["success"]
+                                });
+                                break;
+                            default:
+                                myModal.show({
+                                    template: 2,
+                                    state: ["fail"],
+                                    errMsg: response.result
+                                });
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown, "");
+                    }
+                });
+            },
+            actionRoute: function (type) {
+                if (type == 1) this.addHQ;
+                    else this.edit;
             }
         }
     });
@@ -48,6 +118,7 @@ class MyModal {
     * @param {String}settings.clubName [模版1][成功]社团名称
     * @param {[String]}settings.errMsg [失败]错误信息
     * @param {Function}settings.retry [失败]重试处理方法
+    * @param {Object}settings.param 额外参数
     * @todo 增加动画
     */
     show(settings) {
@@ -59,6 +130,7 @@ class MyModal {
         if (settings.retry != undefined) {
             myModalVue.methods.retry = settings.retry
         }
+        myModalVue.param = settings.param
 
         myModalVue.show = true
     }

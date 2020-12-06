@@ -1,6 +1,6 @@
 # 社团ABC后端API接口文档
 
-> ## 版本1.0
+> ## 版本1.0.2
 
 > 所有的数据传输均使用**POST**方法，所有发送和返回均使用**JSON**格式。Token是用于识别登录状态的一串字符，把用户ID、IP、登录时间通过特定算法算出。
 >
@@ -157,6 +157,7 @@
   - 成功("success")
   - 内部错误
 - myClubs: [[Object]]
+  - index: [Int] 序号（指明这是该用户加入的第几个社团）
   - id: [Int] 社团ID
   - name: [String] 社团名称
   - bgURL: [String] 背景图URL
@@ -217,6 +218,7 @@
 
 - Token
 - name: [String] 部门名称
+- id: [String] 父部门ID
 
 ### 返回
 
@@ -252,7 +254,6 @@
 
 - Token
 - id: [String] 部门ID
-- name: [String] 部门名称
 
 ### 返回
 
@@ -278,7 +279,7 @@
 
 - Token
 - id: [String] 部门ID
-- name: [String] 部门名称
+- memberId: [String] 成员的ID
 
 ### 返回
 

@@ -34,6 +34,7 @@ $(document).ready(function () {
                 })
                 this.onEdit = true;
             } else {
+                var that = this;
                 $.ajax({
                     type: "POST",
                     url: "/userInfo/getMyInfo",
@@ -54,7 +55,7 @@ $(document).ready(function () {
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error(jqXHR);
                         alert(textStatus + ":" + jqXHR.statusText + " " + errorThrown);
-                        this.myInfo = {
+                        that.myInfo = {
                             name: "王三三",
                             nickName: "鱼子酱",
                             avatarURL: "src/img/avatar.png",

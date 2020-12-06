@@ -19,6 +19,7 @@
     <script src="src/lib/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
     <script src="src/lib/bootstrap-treeview-1.2.0/dist/bootstrap-treeview.min.js"></script>
     <script src="src/utils/myModal/myModal.js"></script>
+    <script src="src/js/component/treeview.js"></script>
     <script src="src/js/page/main.js"></script>
 </head>
 
@@ -52,29 +53,32 @@
                                     <span class="labelM">加入的社团</span>
                                 </div>
                                 <div class="col-lg-12 cardContainer">
-                                    <div class="card" v-for="club in myClubs" :key="club.id"
+                                    <div class="card" v-for="club in myClubs" :key="club.index"
                                         v-bind:style="{ backgroundImage: 'url(' + club.bgURL + ')' }"
-                                        v-on:click="cardClicked(club.id)">
+                                        v-on:click="cardClicked(club.index)">
                                         <span class="labelL center">{{ club.name }}</span>
                                         <span class="labelM">{{ club.size }} 人</span>
                                     </div>
+                                </div>
+                                <div v-if="myClubs.length==0" class="text-center" style="width: 100%;">
+                                    <h4 style="line-height: 1.75;">还没有加入任何社团<br>快去左边“加入社团”加入几个吧～</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--背景图-->
                     <div class="clubBGImgContainer" v-if="nodeId!=0">
-                        <img v-bind:src="myClubs[currentClubId].bgURL" alt="社团背景图" class="clubBGImg">
+                        <img v-bind:src="myClubs[currentClubIndex].bgURL" alt="社团背景图" class="clubBGImg">
                         <div class="controls">
                             <div v-if="!listEditing"></div>
                             <div class="left" v-if="listEditing">
-                                <button class="mediumBtn" v-on:click="addHQ(currentId)"><img
+                                <button class="mediumBtn" v-on:click="addHQ(currentClubIndex)"><img
                                         src="src/img/add.png">添加部门</button>
-                                <button class="mediumBtn" v-on:click="renewMember(currentId)"><img
+                                <button class="mediumBtn" v-on:click="renewMember(currentClubIndex)"><img
                                         src="src/img/renewMember.png">更新成员</button>
                             </div>
                             <div class="right">
-                                <button class="mediumBtn" v-if="myClubs[currentClubId].isManager"
+                                <button class="mediumBtn" v-if="myClubs[currentClubIndex].isManager"
                                     v-on:click="listEditing=!listEditing">{{ listEditing?"完成":"编辑"}}</button>
                             </div>
                         </div>
@@ -82,13 +86,13 @@
                     <!--列表-->
                     <div class="list" v-if="nodeId!=0">
                         <div class="list-item-group">
-                            <div class="list-item" v-for="item in currentList.subHQList">
+                            <div class="list-item" v-for="item in currentList.subHQList" v-on:click="getHQInfo(item.id)">
                                 <div class="list-item-left">
                                     <span class="list-item-title">{{ item.name }}</span>
                                 </div>
                                 <div class="list-item-ctrls text-right">
-                                    <span class="myIcon icon-edit" v-if="listEditing"></span>
-                                    <span class="myIcon icon-delete" v-if="listEditing"></span>
+                                    <span class="myIcon icon-edit" v-if="listEditing" v-on:click.stop="edit(item.id)"></span>
+                                    <span class="myIcon icon-delete" v-if="listEditing" v-on:click.stop="del(item.id,'',1,item.name)"></span>
                                     <span class="myIcon icon-arrow"></span>
                                 </div>
                             </div>
@@ -106,7 +110,7 @@
                                 </div>
                                 <div class="list-item-ctrls text-right">
                                     <span class="myIcon icon-edit" v-if="listEditing"></span>
-                                    <span class="myIcon icon-delete" v-if="listEditing"></span>
+                                    <span class="myIcon icon-delete" v-if="listEditing" v-on:click.stop="del(currentHQId,item.id,2,item.name)"></span>
                                     <span class="list-item-subTitle">{{ item.membership.split("-").pop() }}</span>
                                     <span class="myIcon icon-arrow"></span>
                                 </div>
@@ -183,9 +187,9 @@
                                 </div>
                             </div>
                             <div class="list-item-ctrls text-right" style="justify-self:flex-end;min-width:4em;"
-                                v-if="myClubs[currentClubId].isManager">
+                                v-if="myClubs[currentClubIndex].isManager">
                                 <span class="myIcon icon-edit"></span>
-                                <span class="myIcon icon-delete"></span>
+                                <span class="myIcon icon-delete" v-on:click="del(currentHQId,item.id,2)"></span>
                             </div>
                         </div>
                         <div class="memberInfo-bottom">
@@ -260,7 +264,7 @@
             <!--模版2-->
             <div class="myModal-message" v-if="template == 2">
                 <span class="labelS"><img v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
-                    {{ state[0] == "success" ? "社团创建成功" : "出现错误：" + errMsg[0] }}</span>
+                    {{ state[0] == "success" ? "操作成功" : "出现错误：" + errMsg[0] }}</span>
                 <span class="labelS" v-if="state[1]!=''">
                     <img v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
                     {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}
@@ -282,7 +286,7 @@
                             height="33" viewBox="0 0 181.851 55">
                             <g transform="translate(12)"><text transform="translate(51 37)" fill="#0d0202"
                                     font-size="25" font-weight="700">
-                                    <tspan x="0" y="0">添加部门</tspan>
+                                    <tspan x="0" y="0">{{ param.type==1?"添加":"编辑" }}部门</tspan>
                                 </text>
                                 <line x2="138" transform="translate(31.851 54.5)" fill="none" stroke="#bcb8b9"
                                     stroke-width="1" />
@@ -302,8 +306,8 @@
                 </div>
             </div>
             <div class="myModal-buttons" v-if="template==3">
-                <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="" v-show="HQName!=''">添加</button>
-                <button class="mediumBtn" id="myModal-cancel" v-show="HQName==''" v-on:click="close">取消</button>
+                <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="actionRoute(type)" v-show="HQName!=''">{{ param.type==1?"添加":"编辑" }}</button>
+                <button class="mediumBtn" id="myModal-cancel" v-on:click="close">取消</button>
             </div>
             <!--模版4-->
             <div class="myModal-message" v-if="template==4" style="justify-content: flex-start;height: 20%;">

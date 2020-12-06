@@ -24,9 +24,10 @@ $(document).ready(function () {
         el: ".mainContainer",
         data: {
             show: [true, false, false],
-            nodeId: 0,
-            currentId: 0,
-            currentClubId: 0,
+            nodeId: 0, //当前选中的treeview节点
+            currentClubIndex: 0, //当前选中的社团的序号
+            currentClubId: 0, //当前选中的社团的ID
+            currentHQId: 0, //当前选中的部门ID
             listEditing: false,
             currentList: {
                 subHQList: [{
@@ -69,33 +70,40 @@ $(document).ready(function () {
                 nickName: "鱼子酱",
                 avatarURL: "src/img/avatar.png"
             },
-            myClubs: [{
-                id: 0,
-                name: "自强Studio",
-                bgURL: "src/img/自强.png",
-                size: 500,
-                isManager: true,
-                hqs: [{
-                    id: "0-0",
-                    text: '部门 1',
-                    tags: [10],
-                    nodes: [{
-                        id: "0-0-0",
-                        text: '子部门 1',
-                        tags: [10]
-                    },
-                    {
-                        id: "0-0-1",
-                        text: '子部门 2',
-                        tags: [20]
-                    }],
-                    members: []
+            myClubs: [],
+            step: 1,
+            clubName: "",
+            clubDescription: "",
+            clubBGImg: "src/img/joinClubBG.png",
+            newClubId: "",
+            inviteCode: "",
+            showMemberInfoDialog: false,
+            memberInfo: null
+        },
+        mounted() {
+            var that = this;
+            //获取个人信息
+            $.ajax({
+                type: "POST",
+                url: "/userInfo/getMyInfo",
+                data: {
+                    Token: "",
+                    detail: false
                 },
-                {
-                    id: "0-1",
-                    text: '部门 2',
-                    tags: [20],
-                    members: [{
+                success: function (response) {
+                    switch (response) {
+                        case "success":
+                            that.myInfo = response.myInfo;
+                            break;
+                        default:
+                            alert(response);
+                            break;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error(jqXHR);
+                    alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown);
+                    that.myInfo = {
                         name: "王三三",
                         nickName: "鱼子酱",
                         avatarURL: "src/img/avatar.png",
@@ -112,55 +120,119 @@ $(document).ready(function () {
                         wechat: "wxid_qwertyxxx123456",
                         dormBuilding: "C0",
                         marrige: false
-                    }]
+                    }
                 }
-                ],
-                members: [{
-                    name: "王三三",
-                    nickName: "鱼子酱",
-                    avatarURL: "src/img/avatar.png",
-                    gender: 1,
-                    birthday: "2000-05-22",
-                    hometown: "湖北省武汉市",
-                    university: "武汉大学",
-                    school: "计算机学院",
-                    grade: "2020（本）",
-                    schoolNumber: "2020123456789",
-                    phone: 12345678901,
-                    email: "1234567890@163.com",
-                    qq: 12345678,
-                    wechat: "wxid_qwertyxxx123456",
-                    dormBuilding: "C0",
-                    marrige: false
-                }]
-            }],
-            step: 1,
-            clubName: "",
-            clubDescription: "",
-            clubBGImg: "src/img/joinClubBG.png",
-            newClubId: "",
-            inviteCode: "",
-            showMemberInfoDialog: false,
-            memberInfo: null
-        },
-        mounted() {
-            treeData[0].tags = [this.myClubs.length];
-            var i = 0;
-            this.myClubs.forEach(club => {
-                addIcon(club.hqs);
-                treeData[0].nodes.push({
-                    id: i++,
-                    text: club.name,
-                    tags: [club.size],
-                    icon: "myIcon icon-club",
-                    nodes: club.hqs
-                });
             });
-            generateTree(treeData)
+            //获取加入的社团
+            $.ajax({
+                type: "POST",
+                url: "/userInfo/myClubs",
+                data: {
+                    Token: ""
+                },
+                success: function (response) {
+                    switch (response.result) {
+                        case "success":
+                            that.myClubs = response.myClubs;
+                            break;
+                        default:
+                            alert(response.result);
+                            break;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error(jqXHR);
+                    alert("获取社团信息失败");
+                    that.myClubs = [{
+                        index: 0,
+                        id: 0,
+                        name: "自强Studio",
+                        bgURL: "src/img/自强.png",
+                        size: 500,
+                        isManager: true,
+                        hqs: [{
+                            id: "0-0",
+                            text: '部门 1',
+                            tags: [10],
+                            nodes: [{
+                                id: "0-0-0",
+                                text: '子部门 1',
+                                tags: [10]
+                            },
+                            {
+                                id: "0-0-1",
+                                text: '子部门 2',
+                                tags: [20]
+                            }],
+                            members: []
+                        },
+                        {
+                            id: "0-1",
+                            text: '部门 2',
+                            tags: [20],
+                            members: [{
+                                name: "王三三",
+                                nickName: "鱼子酱",
+                                avatarURL: "src/img/avatar.png",
+                                gender: 1,
+                                birthday: "2000-05-22",
+                                hometown: "湖北省武汉市",
+                                university: "武汉大学",
+                                school: "计算机学院",
+                                grade: "2020（本）",
+                                schoolNumber: "2020123456789",
+                                phone: 12345678901,
+                                email: "1234567890@163.com",
+                                qq: 12345678,
+                                wechat: "wxid_qwertyxxx123456",
+                                dormBuilding: "C0",
+                                marrige: false
+                            }]
+                        }
+                        ],
+                        members: [{
+                            name: "王三三",
+                            nickName: "鱼子酱",
+                            avatarURL: "src/img/avatar.png",
+                            gender: 1,
+                            birthday: "2000-05-22",
+                            hometown: "湖北省武汉市",
+                            university: "武汉大学",
+                            school: "计算机学院",
+                            grade: "2020（本）",
+                            schoolNumber: "2020123456789",
+                            phone: 12345678901,
+                            email: "1234567890@163.com",
+                            qq: 12345678,
+                            wechat: "wxid_qwertyxxx123456",
+                            dormBuilding: "C0",
+                            marrige: false
+                        }]
+                    }];
+                }
+            });
         },
         watch: {
+            nodeId: function (val) {
+                console.log("Selected Node Id: " + val);
+            },
             currentClubId: function (val) {
                 console.log("Club Changed To " + val)
+            },
+            myClubs: function (val) {
+                treeData[0].tags = [this.myClubs.length];
+                var i = 0;
+                this.myClubs.forEach(club => {
+                    addIcon(club.hqs);
+                    treeData[0].nodes.push({
+                        id: club.id,
+                        text: club.name,
+                        tags: [club.size],
+                        icon: "myIcon icon-club",
+                        nodes: club.hqs
+                    });
+                });
+                generateTree(treeData);
             }
         },
         //----------按钮点击事件-------------
@@ -206,7 +278,7 @@ $(document).ready(function () {
                         myModal.show({
                             template: 2,
                             state: ["fail", ""],
-                            errMsg: [textStatus + ":" + jqXHR.statusText + " " + errorThrown, ""]
+                            errMsg: [textStatus + ": " + jqXHR.statusText + " " + errorThrown, ""]
                         })
                     }
                 });
@@ -224,7 +296,7 @@ $(document).ready(function () {
                         var msg = "";
                         switch (response) {
                             case "success":
-                            that.myClubs.push(response.myClubs);
+                                that.myClubs.push(response.myClubs);
                                 myModal.show({
                                     template: 1,
                                     state: ["success", ""],
@@ -253,29 +325,34 @@ $(document).ready(function () {
                         myModal.show({
                             template: 1,
                             state: ["fail", ""],
-                            errMsg: [textStatus + ":" + jqXHR.statusText + " " + errorThrown, ""]
+                            errMsg: [textStatus + ": " + jqXHR.statusText + " " + errorThrown, ""]
                         });
                     }
                 });
             },
             cardClicked: function (index) {
-                this.nodeId = index
+                this.currentClubIndex = index
                 $('#tree').treeview('selectNode', [index + 1]);
             },
             addHQ: function (id) {
-                console.log("Adding HQ at " + id)
+                console.log("Adding HQ at " + id);
                 myModal.show({
-                    template: 3
-                })
+                    template: 3,
+                    param: {
+                        id: id,
+                        type: [1, 1]
+                    }
+                });
             },
             renewMember: function (id) {
+                alert("功能待开发");
                 console.log("Renewing members at " + id)
                 myModal.show({
                     template: 4
                 })
             },
             showMemberInfo: function (index) {
-                console.log("clicked:" + index);
+                console.log("clicked: " + index);
                 this.memberInfo = this.currentList.members[index];
                 this.showMemberInfoDialog = true;
             },
@@ -312,73 +389,85 @@ $(document).ready(function () {
                         myModal.show({
                             template: 2,
                             state: ["success", "fail"],
-                            errMsg: ["", textStatus + ":" + jqXHR.statusText + " " + errorThrown]
+                            errMsg: ["", textStatus + ": " + jqXHR.statusText + " " + errorThrown]
                         });
+                    }
+                });
+            },
+            getHQInfo: function (id) {
+                console.log("requesting: " + id);
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/clubs/getHQInfo",
+                    data: {
+                        Token: "",
+                        id: id
+                    },
+                    success: function (response) {
+                        switch (response.result) {
+                            case "success":
+                                that.currentList.subHQList = response.subHQList;
+                                that.currentList.members = response.members;
+                                that.currentHQId = id;
+                                return true;
+                            default:
+                                alert(response);
+                                return false;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown, "");
+                        return false;
+                    }
+                });
+            },
+            edit: function (id, type) {
+                myModal.show({
+                    template: 3,
+                    param: {
+                        id: id,
+                        type: type
+                    }
+                });
+            },
+            del: function (id1, id2, type, name) {
+                if (!confirm("确定要删除“" + name + "”吗？")) return;
+                $.ajax({
+                    type: "POST",
+                    url: type == 1 ? "/clubs/deleteHQ" : "/clubs/deleteMember",
+                    data: {
+                        Token: "",
+                        id: id1,
+                        memberId: id2
+                    },
+                    success: function (response) {
+                        switch (response.result) {
+                            case "success":
+                                myModal.show({
+                                    template: 2,
+                                    state: ["success"]
+                                })
+                                break;
+                            default:
+                                myModal.show({
+                                    template: 2,
+                                    state: ["fail"],
+                                    errMsg: response.result
+                                })
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown, "");
                     }
                 });
             }
         }
     });
 });
-
-function generateTree(data) {
-    $('#tree').treeview({
-        data: data,
-        expandIcon: 'glyphicon myIcon icon-arrow',
-        collapseIcon: 'glyphicon myIcon icon-arrow-down',
-        showBorder: false,
-        showTags: true,
-        emptyIcon: "",
-        color: "#000",
-        selectedBackColor: "var(--themeColor)",
-        backColor: "transparent",
-        onhoverColor: "#4fce9fab",
-        onNodeSelected: function (event, data) {
-            console.log(data)
-            myVue.nodeId = data.nodeId
-            myVue.currentId = data.id
-            $('#tree').treeview('expandNode', [data.nodeId, { levels: 1, silent: true }]);
-            switch (data.icon) {
-                case "myIcon icon-myClub":
-                    myVue.show = [true, false, false]
-                    break;
-                case "myIcon icon-createClub":
-                    myVue.show = [false, true, false]
-                    $('#tree').treeview('collapseAll', { silent: true });
-                    break;
-                case "myIcon icon-joinClub":
-                    myVue.show = [false, false, true]
-                    $('#tree').treeview('collapseAll', { silent: true });
-                    break;
-                case "myIcon icon-club":
-                    myVue.currentClubId = data.id
-                default:
-                    break;
-            }
-        },
-        onNodeExpanded: function (event, node) {
-            console.log(node)
-            $('#tree').treeview('selectNode', [node.nodeId]);
-        },
-        onNodeCollapsed: function (event, node) {
-            console.log(node)
-            $('#tree').treeview('selectNode', [node.nodeId]);
-        },
-        onNodeUnselected: function (event, node) {
-            console.log(node);
-            // $('#tree').treeview('collapseNode', [ node.nodeId, { silent: true } ]);
-        },
-    });
-}
-
-function addIcon(target) {
-    target.forEach(tar => {
-        tar.icon = "myIcon icon-HQ"
-        if (tar.nodes != undefined && tar.nodes.length != 0) {
-            addIcon(tar.nodes)
-        }
-    })
-}
 
 function clubBGImgChanged(obj) {
     console.log(obj.files[0]);
@@ -418,7 +507,7 @@ function excelFileChanged(obj) {
             myModal.show({
                 template: 2,
                 state: ["success", "fail"],
-                errMsg: ["", textStatus + ":" + jqXHR.statusText + " " + errorThrown]
+                errMsg: ["", textStatus + ": " + jqXHR.statusText + " " + errorThrown]
             })
         }
     });

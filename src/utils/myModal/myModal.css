@@ -75,3 +75,12 @@
 .myModal-message input {
     width: calc(100% - 48px);
 }
+
+.myModal-dialog .myModal-buttons #myModal-cancel {
+    color: var(--themeColor);
+    background-color: var(--primaryGray);
+}
+
+.myModal-dialog .myModal-buttons #myModal-cancel:hover {
+    filter: brightness(1.01);
+}
