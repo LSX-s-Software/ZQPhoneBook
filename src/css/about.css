@@ -13,11 +13,24 @@ body {
 }
 
 section {
-    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
+}
+
+@media (prefers-color-scheme: light) {
+    section {
+        background-color: #fff;
+        color: #000;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    section {
+        background-color: #050505;
+        color: #fff;
+    }
 }
 
 section div {

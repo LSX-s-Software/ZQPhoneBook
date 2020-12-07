@@ -1,4 +1,4 @@
-if (!localStorage.getItem("Token")) window.location.href = "index.html";
+// if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var queryString = window.location.search.split("&");
 var myVue;
 $(document).ready(function () {
@@ -114,6 +114,15 @@ $(document).ready(function () {
                         }
                     });
                 }
+            }
+        },
+        methods: {
+            logout: function () {
+                localStorage.removeItem("Token");
+                window.location.href = "index.html";
+            },
+            uploadAvatar: function () {
+                if (this.onEdit) $('#imgUploadInput').click();
             }
         }
     })

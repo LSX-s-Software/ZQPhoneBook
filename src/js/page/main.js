@@ -1,4 +1,4 @@
-if (!localStorage.getItem("Token")) window.location.href = "index.html";
+// if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var treeData = [
     {
         text: '我的社团',
@@ -76,14 +76,14 @@ $(document).ready(function () {
             step: 1,
             clubName: "",
             clubDescription: "",
-            clubBGImg: "src/img/joinClubBG.png",
+            clubBGImg: "src/img/joinClubBG_dark.png",
             newClubId: "",
             inviteCode: "",
             showMemberInfoDialog: false,
             memberInfo: null
         },
         mounted() {
-            if (this.Token == undefined) return;
+            // if (this.Token == undefined) return;
             var that = this;
             //获取个人信息
             $.ajax({
@@ -343,7 +343,7 @@ $(document).ready(function () {
                     template: 3,
                     param: {
                         id: id,
-                        type: [1, 1]
+                        type: 1
                     }
                 });
             },
@@ -431,7 +431,7 @@ $(document).ready(function () {
                     template: 3,
                     param: {
                         id: id,
-                        type: type
+                        type: 2
                     }
                 });
             },

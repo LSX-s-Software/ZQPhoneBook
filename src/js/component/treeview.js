@@ -6,7 +6,7 @@ function generateTree(data) {
         showBorder: false,
         showTags: true,
         emptyIcon: "",
-        color: "#000",
+        color: "var(--darkTextColor)",
         selectedBackColor: "var(--themeColor)",
         backColor: "transparent",
         onhoverColor: "#4fce9fab",

@@ -1,13 +1,41 @@
-:root {
-    --themeColor: #03B169;
-    --navibarColor: #4fce9f;
-    --themeBGColor: #D7F1EA;
-    --highlightColor: #F99406;
-    --primaryGray: #F5F5F5;
-    --secondaryGray: #cacaca;
-    --tertiaryGray: #BABABA;
-    --quaternaryGray: #707070;
-    --darkerGray: #050505;
+@media (prefers-color-scheme: light) {
+	:root {
+        --themeColor: #03B169;
+        --navibarColor: #4fce9f;
+        --themeBGColor: #D7F1EA;
+        --highlightColor: #F99406;
+        --primaryGray: #F5F5F5;
+        --secondaryGray: #cacaca;
+        --tertiaryGray: #BABABA;
+        --quaternaryGray: #707070;
+        --darkerGray: #050505;
+        
+        --lightBGColor: #fff;
+        --lightTextColor: #fff;
+        --darkTextColor: #000;
+        --groupedBGColor: #F5F5F5;
+        --listitemColor: #fff;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+        --themeColor: #03B169;
+        --navibarColor: hsl(158, 70%, 40%);
+        --themeBGColor: hsl(164, 75%, 20%);
+        --highlightColor: #F99406;
+        --primaryGray: #2e2e2e;
+        --secondaryGray: #5e5e5e;
+        --tertiaryGray: #cacaca;
+        --quaternaryGray: #F5F5F5;
+        --darkerGray: #050505;
+        
+        --lightBGColor: #050505;
+        --lightTextColor: #000;
+        --darkTextColor: #fff;
+        --groupedBGColor: #000;
+        --listitemColor: #2e2e2e;
+    }
 }
 
 @font-face {
@@ -131,6 +159,7 @@ input {
     display: inline-block;
     box-sizing: content-box;
     background-color: var(--primaryGray);
+    color: var(--darkTextColor);
 }
 
 input:focus {
@@ -198,10 +227,10 @@ img {
 .segment div:hover {
     cursor: pointer;
     background-color: rgba(3, 177, 105, 0.4);
-    color: #fff;
+    color: var(--lightTextColor);
 }
 
 .segment .selected {
     background-color: var(--themeColor) !important;
-    color: #fff;
+    color: var(--lightTextColor);
 }

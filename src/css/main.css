@@ -2,18 +2,26 @@ body {
     background: url("../img/bg_blur.jpg") no-repeat;
     background-size: cover;
     background-position: center;
-    color: #000;
+    color: var(--darkTextColor);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: url("../img/bg_blur_dark.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
 }
 
 .mainContainer {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 76%;
     height: 92%;
     border-radius: 10px;
-    background-color: white;
+    background-color: var(--lightBGColor);
     padding: 0;
     overflow: hidden;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
@@ -53,7 +61,7 @@ header {
     height: 36px;
     overflow: hidden;
     margin-left: 8px;
-    background-color: white;
+    background-color: var(--lightBGColor);
     border-radius: 20px;
     display: inline-flex;
 }
@@ -63,7 +71,7 @@ header {
     height: 100%;
     box-sizing: border-box;
     margin: 0;
-    background-color: white;
+    background-color: var(--lightBGColor);
 }
 
 #searchMember:focus {
@@ -81,7 +89,6 @@ header {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: white;
     cursor: pointer;
     transition: transform ease-in-out 0.3s, box-shadow ease-in-out 0.3s;
 }
@@ -139,9 +146,20 @@ header {
 }
 
 .joinClubContainer {
-    background-image: url(../img/joinClubBG.png);
     background-size: cover;
     background-position: center;
+}
+
+@media (prefers-color-scheme: light) {
+    .joinClubContainer {
+        background-image: url(../img/joinClubBG.png);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .joinClubContainer {
+        background-image: url(../img/joinClubBG_dark.png);
+    }
 }
 
 .joinClub {
@@ -244,7 +262,7 @@ header {
     flex-shrink: 0;
     cursor: pointer;
     box-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.1);
-    transition: filter ease-in-out 0.3s,transform ease-in-out 0.3s;
+    transition: filter ease-in-out 0.3s, transform ease-in-out 0.3s;
 }
 
 .dashboard .card:hover {
@@ -264,7 +282,7 @@ header {
 }
 
 .list {
-    background-color: var(--primaryGray);
+    background-color: var(--groupedBGColor);
     height: 70%;
     overflow-y: scroll;
 }
@@ -272,7 +290,7 @@ header {
 .list-item-group {
     margin: 18px 18px 0;
     border-radius: 15px;
-    background-color: #fff;
+    background-color: var(--listitemColor);
     overflow: hidden;
 }
 
@@ -364,8 +382,8 @@ header {
 }
 
 .clubBGImgContainer .controls .left button {
-    background-color: #fff;
-    color: #000;
+    background-color: var(--lightBGColor);
+    color: var(--darkTextColor);
     font-weight: normal;
     margin-left: 0;
 }
@@ -403,7 +421,6 @@ header {
 .memberInfo-top {
     height: 30%;
     justify-content: space-between;
-    
 }
 
 .memberInfo-top .list-item-avatar {
@@ -422,9 +439,49 @@ header {
     align-items: center;
 }
 
-.memberInfo  .labelS {
+.memberInfo .labelS {
     font-weight: bold;
     width: 2em;
     color: var(--themeColor);
     margin-left: 0;
+}
+
+@media (max-width: 801px) {
+    .mainContainer {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .dashboard .row {
+        padding: 8px;
+    }
+    .headerCtrls {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .searchMember {
+        min-width: 10em;
+    }
+}
+
+@media (max-width: 400px) {
+    .treeViewContainer {
+        float: left;
+        min-width: min(238px, 90%);
+        z-index: 5;
+    }
+    .mainViewContainer {
+        width: 100%;
+        position: absolute;
+    }
+    .dashboard .row {
+        padding: 18px;
+    }
+}
+
+@media (max-height: 500px) {
+    .mainContainer {
+        height: 100%;
+    }
 }

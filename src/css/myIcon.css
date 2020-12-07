@@ -5,18 +5,6 @@
     transform: scale(2.5);
 }
 
-.icon-arrow {
-    content: url(../img/arrow.png);
-    transform: scale(1);
-    margin-right: 5px !important;
-}
-
-.icon-arrow-down {
-    content: url(../img/arrow.png);
-    transform: scale(1) rotate(90deg);
-    margin-right: 5px !important;
-}
-
 .icon-myClub {
     content: url(../img/myClub.png);
 }
@@ -37,17 +25,9 @@
     content: url(../img/home.png);
 }
 
-.icon-edit {
-    content: url(../img/edit.png);
-}
-
 .icon-HQ {
     content: url(../img/HQ.png);
     transform: scale(2);
-}
-
-.icon-delete {
-    content: url(../img/delete.png);
 }
 
 .icon-add {
@@ -60,4 +40,46 @@
 
 .icon-back-white {
     content: url(../img/back_white.png);
+}
+
+@media (prefers-color-scheme: light) {
+    .icon-arrow {
+        content: url(../img/arrow.png);
+        transform: scale(1);
+        margin-right: 5px !important;
+    }
+    .icon-arrow-down {
+        content: url(../img/arrow.png);
+        transform: scale(1) rotate(90deg);
+        margin-right: 5px !important;
+    }
+    .icon-edit {
+        content: url(../img/edit.png);
+    }
+    .icon-delete {
+        content: url(../img/delete.png);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .icon-arrow {
+        content: url(../img/arrow.png);
+        transform: scale(1);
+        margin-right: 5px !important;
+        filter: invert(100%);
+    }
+    .icon-arrow-down {
+        content: url(../img/arrow.png);
+        transform: scale(1) rotate(90deg);
+        margin-right: 5px !important;
+        filter: invert(100%);
+    }
+    .icon-edit {
+        content: url(../img/edit.png);
+        filter: invert(100%);
+    }
+    .icon-delete {
+        content: url(../img/delete.png);
+        filter: invert(100%);
+    }
 }
