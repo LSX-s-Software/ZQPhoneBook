@@ -1,15 +1,20 @@
 body {
-    background: url("../img/bg_blur.jpg") no-repeat;
+    background-color: var(--lightBGColor);
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     color: var(--darkTextColor);
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-image: url("../img/bg_blur.jpg");
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     body {
-        background: url("../img/bg_blur_dark.jpg") no-repeat;
-        background-size: cover;
-        background-position: center;
+        background-image: url("../img/bg_blur_dark.jpg");
     }
 }
 
@@ -20,7 +25,7 @@ body {
     transform: translate(-50%, -50%);
     width: 76%;
     height: 92%;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: var(--lightBGColor);
     padding: 0;
     overflow: hidden;
@@ -247,8 +252,6 @@ header {
 }
 
 .dashboard .card {
-    background-position: center;
-    background-size: cover;
     border-radius: 15px;
     overflow: hidden;
     width: 200px;
@@ -263,16 +266,31 @@ header {
     cursor: pointer;
     box-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.1);
     transition: filter ease-in-out 0.3s, transform ease-in-out 0.3s;
+    position: relative;
 }
 
 .dashboard .card:hover {
-    filter: brightness(1.05);
-    transform: scale(1.02);
+    filter: brightness(1.1);
+    /* transform: scale(1.02); */
 }
 
 .card .labelM, .card .labelL {
     margin-top: 0;
     font-weight: normal;
+    z-index: 8;
+}
+
+.dashboard .card img {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    object-fit: cover;
+    z-index: inherit;
+    filter: blur(5px);
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .badge {
@@ -465,7 +483,7 @@ header {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 415px) {
     .treeViewContainer {
         float: left;
         min-width: min(238px, 90%);

@@ -54,6 +54,7 @@ $(document).ready(function () {
                                     template: 2,
                                     state: ["success"]
                                 })
+                                myVue.getMyClub();
                                 break;
                             default:
                                 myModal.show({
@@ -86,6 +87,7 @@ $(document).ready(function () {
                                     template: 2,
                                     state: ["success"]
                                 });
+                                myVue.getMyClub();
                                 break;
                             default:
                                 myModal.show({

@@ -126,94 +126,7 @@ $(document).ready(function () {
                     }
                 }
             });
-            //获取加入的社团
-            $.ajax({
-                type: "POST",
-                url: "/userInfo/myClubs",
-                data: {
-                    Token: this.Token
-                },
-                success: function (response) {
-                    switch (response.result) {
-                        case "success":
-                            that.myClubs = response.myClubs;
-                            break;
-                        default:
-                            alert(response.result);
-                            break;
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error(jqXHR);
-                    alert("获取社团信息失败");
-                    that.myClubs = [{
-                        index: 0,
-                        id: 0,
-                        name: "自强Studio",
-                        bgURL: "src/img/自强.png",
-                        size: 500,
-                        isManager: true,
-                        hqs: [{
-                            id: "0-0",
-                            text: '部门 1',
-                            tags: [10],
-                            nodes: [{
-                                id: "0-0-0",
-                                text: '子部门 1',
-                                tags: [10]
-                            },
-                            {
-                                id: "0-0-1",
-                                text: '子部门 2',
-                                tags: [20]
-                            }],
-                            members: []
-                        },
-                        {
-                            id: "0-1",
-                            text: '部门 2',
-                            tags: [20],
-                            members: [{
-                                name: "王三三",
-                                nickName: "鱼子酱",
-                                avatarURL: "src/img/avatar.png",
-                                gender: 1,
-                                birthday: "2000-05-22",
-                                hometown: "湖北省武汉市",
-                                university: "武汉大学",
-                                school: "计算机学院",
-                                grade: "2020（本）",
-                                schoolNumber: "2020123456789",
-                                phone: 12345678901,
-                                email: "1234567890@163.com",
-                                qq: 12345678,
-                                wechat: "wxid_qwertyxxx123456",
-                                dormBuilding: "C0",
-                                marrige: false
-                            }]
-                        }
-                        ],
-                        members: [{
-                            name: "王三三",
-                            nickName: "鱼子酱",
-                            avatarURL: "src/img/avatar.png",
-                            gender: 1,
-                            birthday: "2000-05-22",
-                            hometown: "湖北省武汉市",
-                            university: "武汉大学",
-                            school: "计算机学院",
-                            grade: "2020（本）",
-                            schoolNumber: "2020123456789",
-                            phone: 12345678901,
-                            email: "1234567890@163.com",
-                            qq: 12345678,
-                            wechat: "wxid_qwertyxxx123456",
-                            dormBuilding: "C0",
-                            marrige: false
-                        }]
-                    }];
-                }
-            });
+            this.getMyClub();
         },
         watch: {
             nodeId: function (val) {
@@ -225,6 +138,7 @@ $(document).ready(function () {
             myClubs: function (val) {
                 treeData[0].tags = [this.myClubs.length];
                 var i = 0;
+                treeData[0].nodes = [];
                 this.myClubs.forEach(club => {
                     addIcon(club.hqs);
                     treeData[0].nodes.push({
@@ -250,6 +164,96 @@ $(document).ready(function () {
                 else if (hour < 17) { return "下午" }
                 else if (hour < 19) { return "傍晚" }
                 else { return "晚上" }
+            },
+            getMyClub: function () { //获取加入的社团
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/userInfo/myClubs",
+                    data: {
+                        Token: this.Token
+                    },
+                    success: function (response) {
+                        switch (response.result) {
+                            case "success":
+                                that.myClubs = response.myClubs;
+                                break;
+                            default:
+                                alert(response.result);
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert("获取社团信息失败");
+                        that.myClubs = [{
+                            index: 0,
+                            id: 0,
+                            name: "自强Studio",
+                            bgURL: "src/img/自强.png",
+                            size: 500,
+                            isManager: true,
+                            hqs: [{
+                                id: "0-0",
+                                text: '部门 1',
+                                tags: [10],
+                                nodes: [{
+                                    id: "0-0-0",
+                                    text: '子部门 1',
+                                    tags: [10]
+                                },
+                                {
+                                    id: "0-0-1",
+                                    text: '子部门 2',
+                                    tags: [20]
+                                }],
+                                members: []
+                            },
+                            {
+                                id: "0-1",
+                                text: '部门 2',
+                                tags: [20],
+                                members: [{
+                                    name: "王三三",
+                                    nickName: "鱼子酱",
+                                    avatarURL: "src/img/avatar.png",
+                                    gender: 1,
+                                    birthday: "2000-05-22",
+                                    hometown: "湖北省武汉市",
+                                    university: "武汉大学",
+                                    school: "计算机学院",
+                                    grade: "2020（本）",
+                                    schoolNumber: "2020123456789",
+                                    phone: 12345678901,
+                                    email: "1234567890@163.com",
+                                    qq: 12345678,
+                                    wechat: "wxid_qwertyxxx123456",
+                                    dormBuilding: "C0",
+                                    marrige: false
+                                }]
+                            }
+                            ],
+                            members: [{
+                                name: "王三三",
+                                nickName: "鱼子酱",
+                                avatarURL: "src/img/avatar.png",
+                                gender: 1,
+                                birthday: "2000-05-22",
+                                hometown: "湖北省武汉市",
+                                university: "武汉大学",
+                                school: "计算机学院",
+                                grade: "2020（本）",
+                                schoolNumber: "2020123456789",
+                                phone: 12345678901,
+                                email: "1234567890@163.com",
+                                qq: 12345678,
+                                wechat: "wxid_qwertyxxx123456",
+                                dormBuilding: "C0",
+                                marrige: false
+                            }]
+                        }];
+                    }
+                });
             },
             createClub: function () {
                 var that = this;
@@ -334,22 +338,22 @@ $(document).ready(function () {
                 });
             },
             cardClicked: function (index) {
-                this.currentClubIndex = index
-                $('#tree').treeview('selectNode', [index + 1]);
+                myVue.currentClubIndex = index;
+                $('#tree').treeview('selectNode', $('#tree').treeview('getNode', 0).nodes[index]);
             },
-            addHQ: function (id) {
-                console.log("Adding HQ at " + id);
+            addHQ: function () {
+                console.log("Adding HQ at " + this.currentHQId);
                 myModal.show({
                     template: 3,
                     param: {
-                        id: id,
+                        id: this.currentHQId,
                         type: 1
                     }
                 });
             },
-            renewMember: function (id) {
+            renewMember: function () {
                 alert("功能待开发");
-                console.log("Renewing members at " + id)
+                console.log("Renewing members at " + this.currentHQId);
                 myModal.show({
                     template: 4
                 })
@@ -437,6 +441,7 @@ $(document).ready(function () {
             },
             del: function (id1, id2, type, name) {
                 if (!confirm("确定要删除“" + name + "”吗？")) return;
+                var that = this;
                 $.ajax({
                     type: "POST",
                     url: type == 1 ? "/clubs/deleteHQ" : "/clubs/deleteMember",
@@ -452,6 +457,16 @@ $(document).ready(function () {
                                     template: 2,
                                     state: ["success"]
                                 })
+                                if (type == 1) {
+                                    that.getMyClub();
+                                    that.getHQInfo(id1);
+                                } else {
+                                    var newList = [];
+                                    that.currentList.forEach(ele => {
+                                        if (ele.id != id2) newList.push(ele)
+                                    });
+                                    that.currentList = newList;
+                                }
                                 break;
                             default:
                                 myModal.show({
@@ -497,6 +512,7 @@ function excelFileChanged(obj) {
                     state: ["success", "success"],
                     errMsg: ["", ""]
                 })
+                myVue.getMyClub();
             } else {
                 myModal.show({
                     template: 2,

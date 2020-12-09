@@ -24,7 +24,6 @@ body {
     background-color: var(--lightTextColor);
     padding: 0;
     overflow: hidden;
-    min-width: 600px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
 }
 
@@ -139,6 +138,30 @@ header {
         height: 100%;
         border-radius: 0;
         box-shadow: none;
+    }
+
+    .main {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .myInfo .labelS {
+        width: 4.5em;
+    }
+
+    .editable {
+        width: calc(100% - 5em);
+    }
+
+    .container {
+        padding: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .myInfo .labelS {
+        width: 2em;
     }
 }
 
