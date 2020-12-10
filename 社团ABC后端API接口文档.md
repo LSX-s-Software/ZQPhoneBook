@@ -1,6 +1,6 @@
 # 社团ABC后端API接口文档
 
-> ## 版本1.0.2
+> ## 版本1.1.0
 
 > 所有的数据传输均使用**POST**方法，所有发送和返回均使用**JSON**格式。Token是用于识别登录状态的一串字符，把用户ID、IP、登录时间通过特定算法算出。
 >
@@ -259,6 +259,26 @@
 
 - result: [String]
   - 成功("success")
+  - 内部错误
+
+## 添加成员
+
+### 路径
+
+/clubs/addMember
+
+### 发送
+
+- Token
+- id: [String] 父部门ID
+- phone: [String] 要添加的用户的手机号
+
+### 返回
+
+- result: [String]
+  - 成功("success")
+  - 用户不存在("userNotExist")
+  - 用户已属于该部门("userExisted")
   - 内部错误
 
 ## 编辑成员

@@ -420,7 +420,7 @@ header {
     width: 100%;
     align-items: flex-end;
     justify-content: space-between;
-    z-index: 10;
+    z-index: 5;
 }
 
 .clubBGImgContainer .controls .left button {

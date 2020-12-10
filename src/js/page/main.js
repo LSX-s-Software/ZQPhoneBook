@@ -318,6 +318,7 @@ $(document).ready(function () {
                             myModal.show({
                                 template: 2,
                                 state: ["fail", ""],
+                                type: ["add","club"],
                                 errMsg: [data.result, ""]
                             })
                         }
@@ -326,6 +327,7 @@ $(document).ready(function () {
                         console.error(jqXHR);
                         myModal.show({
                             template: 2,
+                            type: ["add","club"],
                             state: ["fail", ""],
                             errMsg: [textStatus + ": " + jqXHR.statusText + " " + errorThrown, ""]
                         })
@@ -389,12 +391,11 @@ $(document).ready(function () {
                     template: 3,
                     param: {
                         id: this.currentHQId,
-                        type: 1
+                        type: ["add","hq"]
                     }
                 });
             },
             renewMember: function () {
-                alert("功能待开发");
                 console.log("Renewing members at " + this.currentHQId);
                 myModal.show({
                     template: 4
@@ -427,6 +428,7 @@ $(document).ready(function () {
                             default:
                                 myModal.show({
                                     template: 2,
+                                    type: ["add","club"],
                                     state: ["success", "fail"],
                                     errMsg: ["", response.result]
                                 });
@@ -437,6 +439,7 @@ $(document).ready(function () {
                         console.error(jqXHR);
                         myModal.show({
                             template: 2,
+                            type: ["add","club"],
                             state: ["success", "fail"],
                             errMsg: ["", textStatus + ": " + jqXHR.statusText + " " + errorThrown]
                         });
@@ -477,7 +480,7 @@ $(document).ready(function () {
                     template: 3,
                     param: {
                         id: id,
-                        type: 2
+                        type: ["edit","hq"]
                     }
                 });
             },
@@ -497,6 +500,7 @@ $(document).ready(function () {
                             case "success":
                                 myModal.show({
                                     template: 2,
+                                    type: ["del", type==1?"hq":"member"],
                                     state: ["success"]
                                 })
                                 if (type == 1) {
@@ -513,8 +517,9 @@ $(document).ready(function () {
                             default:
                                 myModal.show({
                                     template: 2,
+                                    type: ["del", type==1?"hq":"member"],
                                     state: ["fail"],
-                                    errMsg: response.result
+                                    errMsg: [response.result]
                                 })
                                 break;
                         }
@@ -554,6 +559,7 @@ function excelFileChanged(obj) {
             if (data.result == "success") {
                 myModal.show({
                     template: 2,
+                    type: ["add", "club"],
                     state: ["success", "success"],
                     errMsg: ["", ""]
                 })
@@ -561,6 +567,7 @@ function excelFileChanged(obj) {
             } else {
                 myModal.show({
                     template: 2,
+                    type: ["add", "club"],
                     state: ["success", "fail"],
                     errMsg: ["", data.result]
                 })
@@ -570,6 +577,7 @@ function excelFileChanged(obj) {
             console.error(jqXHR);
             myModal.show({
                 template: 2,
+                type: ["add", "club"],
                 state: ["success", "fail"],
                 errMsg: ["", textStatus + ": " + jqXHR.statusText + " " + errorThrown]
             })

@@ -288,7 +288,7 @@
                         {{ state[0] == "success" ? "审核通过，你已成功加入" : "出现错误：" + errMsg[0] }}</span>
                     <span class="labelM" style="width: 100%;" v-if="state[0] == 'success'">{{ clubName }}</span>
                 </div>
-                <div class="myModal-buttons" v-if="template == 1" key="d1">
+                <div class="myModal-buttons" v-if="template == 1" key="b1">
                     <button class="defaultBtn mediumBtn" id="myModal-default" v-if="state[0] == 'success'"
                         v-on:click="backToMyClub">返回我的社团</button>
                     <button class="defaultBtn mediumBtn" id="myModal-retry" v-if="state[0] == 'fail'"
@@ -300,15 +300,17 @@
                 <div class="myModal-message" v-if="template == 2" key="d2">
                     <span class="labelS"><img
                             v-bind:src="state[0] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
-                        {{ state[0] == "success" ? "操作成功" : "出现错误：" + errMsg[0] }}</span>
+                        {{ param.type[0]=="add"?"添加":"编辑"}}{{ state[0]=="success"?"成功":"出现错误："+errMsg[0] }}</span>
                     <span class="labelS" v-if="state[1]!=''">
                         <img v-bind:src="state[1] == 'success' ? 'src/img/success.png' : 'src/img/error.png'">
                         {{ state[1] == "success" ? "成员信息导入成功" : "出现错误：" + errMsg[1] }}
                     </span>
                 </div>
-                <div class="myModal-buttons" v-if="template == 2" key="d2">
+                <div class="myModal-buttons" v-if="template == 2" key="b2">
                     <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="getInviteCode"
-                        v-if="state[0] == 'success' && state[1] == 'success'">获取成员邀请码</button>
+                        v-if="param.type[1]=='club'&&state[0]=='success'&&state[1]=='success'">获取成员邀请码</button>
+                    <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="close"
+                        v-if="param.type[1]!='club'&&state[0]=='success'">关闭</button>
                     <button class="defaultBtn mediumBtn" id="myModal-retry"
                         v-if="state[0] == 'fail' || state[1] == 'fail'" v-on:click="retry">重试</button>
                     <button class="mediumBtn" id="myModal-cancel" v-if="state[0] == 'fail' || state[1] == 'fail'"
@@ -322,7 +324,9 @@
                                 width="109.2" height="33" viewBox="0 0 181.851 55">
                                 <g transform="translate(12)"><text transform="translate(51 37)"
                                         fill="var(--darkTextColor)" font-size="25" font-weight="700">
-                                        <tspan x="0" y="0">{{ param.type==1?"添加":"编辑" }}部门</tspan>
+                                        <tspan x="0" y="0">
+                                            {{ param.type[0]=="add"?"添加":"编辑" }}{{ param.type[1]=="hq"?"部门":"用户" }}
+                                        </tspan>
                                     </text>
                                     <line x2="138" transform="translate(31.851 54.5)" fill="none" stroke="#bcb8b9"
                                         stroke-width="1" />
@@ -333,17 +337,18 @@
                         </div>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-lg-12 text-left">
-                                <span class="labelM">部门名称</span>
+                                <span class="labelM">{{ param.type[1]=="hq"?"部门名称":"用户手机号" }}</span>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <input type="text" v-model="HQName">
+                                <input type="text" v-model="HQName" v-if="param.type[1]=='hq'">
+                                <input type="tel" v-model="phone" v-if="param.type[1]=='member'" maxlength="11">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="myModal-buttons" v-if="template==3" key="d3">
-                    <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="actionRoute(type)"
-                        v-show="HQName!=''">{{ param.type==1?"添加":"编辑" }}</button>
+                <div class="myModal-buttons" v-if="template==3" key="b3">
+                    <button class="defaultBtn mediumBtn" id="myModal-default" v-on:click="actionRoute()"
+                        v-show="(param.type[1]=='hq'&&HQName!='')||(param.type[1]=='member'&&phone.length==11)">{{ param.type[0]=="add"?"添加":"编辑" }}</button>
                     <button class="mediumBtn" id="myModal-cancel" v-on:click="close">取消</button>
                 </div>
                 <!--模版4-->
@@ -368,11 +373,12 @@
                         </g>
                     </svg>
                 </div>
-                <div class="myModal-buttons" v-if="template==4" style="height: 80%;" key="d4">
+                <div class="myModal-buttons" v-if="template==4" style="height: 80%;" key="b4">
                     <div class="container">
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-lg-12 text-center">
-                                <button class="defaultBtn smallBtn"><img src="src/img/addMember.png">普通添加</button>
+                                <button class="defaultBtn smallBtn" v-on:click="manualAddMember"><img
+                                        src="src/img/addMember.png">普通添加</button>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px;">
@@ -399,7 +405,7 @@
                     <span class="labelS"
                         style="font-size: smaller;color: var(--red);margin-bottom: 8px;">此邀请码只会显示一次</span>
                 </div>
-                <div class="myModal-buttons" v-if="template == 5" key="d5">
+                <div class="myModal-buttons" v-if="template == 5" key="b5">
                     <button class="defaultBtn mediumBtn" id="myModal-default" v-if="state[0] == 'success'"
                         v-on:click="backToMyClub">返回我的社团</button>
                 </div>

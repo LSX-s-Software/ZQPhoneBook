@@ -3,12 +3,14 @@ $(document).ready(function () {
     myModalVue = new Vue({
         el: ".myModal-container",
         data: {
+            Token: myVue.Token,
             show: false,
             template: 0,
             state: ["", ""],
             errMsg: ["", ""],
             clubName: "",
             HQName: "",
+            phone: "",
             inviteCode: "",
             param: null
         },
@@ -33,12 +35,15 @@ $(document).ready(function () {
                         break;
                 }
             },
-            close: function () { this.show = false },
+            close: function () {
+                this.show = false;
+                this.template = 0;
+                this.param = null;
+            },
             getInviteCode: function () {
                 myVue.getInviteCode();
             },
             addHQ: function () {
-                var that = this;
                 $.ajax({
                     type: "POST",
                     url: "/clubs/addHQ",
@@ -52,7 +57,8 @@ $(document).ready(function () {
                             case "success":
                                 myModal.show({
                                     template: 2,
-                                    state: ["success"]
+                                    state: ["success"],
+                                    type: ["add", "hq"]
                                 })
                                 myVue.getMyClub();
                                 break;
@@ -60,7 +66,8 @@ $(document).ready(function () {
                                 myModal.show({
                                     template: 2,
                                     state: ["fail"],
-                                    errMsg: response.result
+                                    type: ["add", "hq"],
+                                    errMsg: [response.result]
                                 })
                                 break;
                         }
@@ -85,6 +92,7 @@ $(document).ready(function () {
                             case "success":
                                 myModal.show({
                                     template: 2,
+                                    type: ["edit", "hq"],
                                     state: ["success"]
                                 });
                                 myVue.getMyClub();
@@ -93,7 +101,8 @@ $(document).ready(function () {
                                 myModal.show({
                                     template: 2,
                                     state: ["fail"],
-                                    errMsg: response.result
+                                    type: ["edit", "hq"],
+                                    errMsg: [response.result]
                                 });
                                 break;
                         }
@@ -104,9 +113,81 @@ $(document).ready(function () {
                     }
                 });
             },
-            actionRoute: function (type) {
-                if (type == 1) this.addHQ;
-                    else this.edit;
+            addMember: function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/clubs/addMember",
+                    data: {
+                        Token: this.Token,
+                        phone: this.phone,
+                        id: this.param.id
+                    },
+                    success: function (response) {
+                        switch (response.result) {
+                            case "success":
+                                myModal.show({
+                                    template: 2,
+                                    type: ["add", "member"],
+                                    state: ["success"]
+                                });
+                                myVue.getHQInfo(myVue.currentHQId);
+                                break;
+                            case "userNotExist":
+                                myModal.show({
+                                    template: 2,
+                                    type: ["add", "member"],
+                                    state: ["fail"],
+                                    errMsg: ["用户不存在"]
+                                });
+                                break;
+                            case "userExisted":
+                                myModal.show({
+                                    template: 2,
+                                    type: ["add", "member"],
+                                    state: ["fail"],
+                                    errMsg: ["用户已属于该部门"]
+                                });
+                                break;
+                            default:
+                                myModal.show({
+                                    template: 2,
+                                    state: ["fail"],
+                                    type: ["add", "member"],
+                                    errMsg: [response.result]
+                                });
+                                break;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR);
+                        alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown, "");
+                    }
+                });
+            },
+            manualAddMember: function () {
+                myModal.show({
+                    template: 3,
+                    param: {
+                        id: myVue.currentHQId,
+                        type: ["add", "member"]
+                    }
+                });
+            },
+            actionRoute: function () {
+                switch (this.param.type) {
+                    case ["add", "hq"]:
+                        this.addHQ();
+                        break;
+                    case ["edit", "hq"]:
+                        this.edit();
+                        break;
+                    case ["add", "member"]:
+                        this.addMember();
+                        break;
+                    default:
+                        break;
+                }
+                this.close();
             }
         }
     });
