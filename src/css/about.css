@@ -8,7 +8,7 @@ body {
     position: fixed;
     width: 100%;
     bottom: 0;
-    max-height: 60%;
+    max-height: 75%;
     overflow-y: scroll;
 }
 
@@ -17,20 +17,8 @@ section {
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
-}
-
-@media (prefers-color-scheme: light) {
-    section {
-        background-color: #fff;
-        color: #000;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    section {
-        background-color: #050505;
-        color: #fff;
-    }
+    background-color: var(--lightBGColor);
+    color: var(--darkTextColor);
 }
 
 section div {
@@ -43,6 +31,13 @@ section div {
 section h3 {
     text-align: center;
     color: var(--themeColor);
+}
+
+section p .small {
+    font-size: smaller;
+    color: var(--quaternaryGray);
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
 footer {

@@ -21,6 +21,7 @@ var treeData = [
 var myModal = new MyModal;
 var myVue;
 $(document).ready(function () {
+    $(".mainContainer").css("opacity", 1);
     myVue = new Vue({
         el: ".mainContainer",
         data: {
@@ -80,6 +81,47 @@ $(document).ready(function () {
             newClubId: "",
             inviteCode: "",
             showMemberInfoDialog: false,
+            showSearchBox: false,
+            searchHistory: [{
+                id: "123",
+                name: "王三三",
+                nickName: "鱼子酱",
+                avatarURL: "src/img/avatar.png",
+                gender: 1,
+                birthday: "2000-05-22",
+                hometown: "湖北省武汉市",
+                university: "武汉大学",
+                school: "计算机学院",
+                grade: "2020（本）",
+                schoolNumber: "2020123456789",
+                phone: 12345678901,
+                email: "1234567890@163.com",
+                qq: 12345678,
+                wechat: "wxid_qwertyxxx123456",
+                dormBuilding: "C0",
+                marrige: false,
+                membership: "自强Studio-技术中心-产品组-部长"
+            },{
+                id: "123",
+                name: "王三三",
+                nickName: "鱼子酱",
+                avatarURL: "src/img/avatar.png",
+                gender: 1,
+                birthday: "2000-05-22",
+                hometown: "湖北省武汉市",
+                university: "武汉大学",
+                school: "计算机学院",
+                grade: "2020（本）",
+                schoolNumber: "2020123456789",
+                phone: 12345678901,
+                email: "1234567890@163.com",
+                qq: 12345678,
+                wechat: "wxid_qwertyxxx123456",
+                dormBuilding: "C0",
+                marrige: false,
+                membership: "自强Studio-技术中心-产品组-部长"
+            }],
+            searchText: "",
             memberInfo: null
         },
         mounted() {
@@ -482,6 +524,9 @@ $(document).ready(function () {
                         alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown, "");
                     }
                 });
+            },
+            search: function () {
+                console.log("搜索的内容：" + this.searchText);
             }
         }
     });

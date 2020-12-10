@@ -30,6 +30,8 @@ body {
     padding: 0;
     overflow: hidden;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
+    opacity: 0;
+    transition: opacity 1s ease-out;
 }
 
 header {
@@ -88,6 +90,28 @@ header {
     height: 36px;
     cursor: pointer;
     z-index: 10;
+}
+
+.searchBox {
+    position: absolute;
+    left: calc(25% + 38px);
+    top: 55px;
+    width: 24%;
+    z-index: 10;
+    border-radius: 15px;
+    background-color: var(--groupedBGColor);
+    box-shadow: 0px 6px 10px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.searchBox .placeholder {
+    padding: 1em 0;
+    text-align: center;
+    border-bottom: 1px var(--secondaryGray) solid;
+}
+
+.searchBox .list-item {
+    padding: 10px 18px;
 }
 
 #myAvatar {
@@ -271,7 +295,7 @@ header {
 
 .dashboard .card:hover {
     filter: brightness(1.1);
-    /* transform: scale(1.02); */
+    transform: scale(1.02);
 }
 
 .card .labelM, .card .labelL {
@@ -478,7 +502,7 @@ header {
         padding-left: 8px;
         padding-right: 8px;
     }
-    .searchMember {
+    .searchMember, .searchBox {
         min-width: 10em;
     }
 }
@@ -502,4 +526,12 @@ header {
     .mainContainer {
         height: 100%;
     }
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
