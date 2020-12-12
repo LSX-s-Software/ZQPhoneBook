@@ -47,6 +47,7 @@ $(document).ready(function () {
                             switch (response.result) {
                                 case "success":
                                     window.location.href = "main.html"
+                                    localStorage.setItem("Token", response.Token);
                                     break;
                                 case "username":
                                     alert("用户不存在");

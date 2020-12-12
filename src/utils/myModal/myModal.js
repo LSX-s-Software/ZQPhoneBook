@@ -3,7 +3,6 @@ $(document).ready(function () {
     myModalVue = new Vue({
         el: ".myModal-container",
         data: {
-            Token: myVue.Token,
             show: false,
             template: 0,
             state: ["", ""],
@@ -48,7 +47,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/addHQ",
                     data: {
-                        Token: this.Token,
+                        Token: myVue.Token,
                         name: this.HQName,
                         id: this.param.id
                     },
@@ -83,7 +82,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/editHQ",
                     data: {
-                        Token: this.Token,
+                        Token: myVue.Token,
                         name: this.HQName,
                         id: this.param.id
                     },
@@ -118,7 +117,7 @@ $(document).ready(function () {
                     type: "POST",
                     url: "/clubs/addMember",
                     data: {
-                        Token: this.Token,
+                        Token: myVue.Token,
                         phone: this.phone,
                         id: this.param.id
                     },

@@ -10,7 +10,7 @@ $(document).ready(function () {
             myInfo: {
                 name: "",
                 nickName: "",
-                avatarURL: "src/img/person.png",
+                avatarURL: "./src/img/person.png",
                 gender: 0,
                 birthday: "",
                 hometown: "",
@@ -60,7 +60,7 @@ $(document).ready(function () {
                         that.myInfo = {
                             name: "王三三",
                             nickName: "鱼子酱",
-                            avatarURL: "src/img/avatar.png",
+                            avatarURL: "./src/img/avatar.png",
                             gender: 1,
                             birthday: "2000-05-22",
                             hometown: "湖北省武汉市",
