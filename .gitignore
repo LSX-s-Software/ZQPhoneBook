@@ -1,5 +1,4 @@
 # misc 
 .DS_Store
 
-# feature add later
-mobile.*
+.VSCodeCounter/*

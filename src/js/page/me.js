@@ -1,4 +1,4 @@
-// if (!localStorage.getItem("Token")) window.location.href = "index.html";
+if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var queryString = window.location.search.split("&");
 var myVue;
 $(document).ready(function () {
@@ -85,8 +85,8 @@ $(document).ready(function () {
                 if (!onEdit) {
                     var formFile = new FormData();
                     formFile.append("avatar", this.avatarURL);
-                    formFile.append("Token", "");
-                    formFile.append("myInfo", this.myInfo);
+                    formFile.append("Token", this.Token);
+                    formFile.append("myInfo", JSON.stringify(this.myInfo));
                     $.ajax({
                         type: "POST",
                         url: "/userInfo/setMyInfo",

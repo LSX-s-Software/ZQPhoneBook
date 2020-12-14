@@ -35,6 +35,7 @@ $(document).ready(function () {
         },
         methods: {
             submit: function () {
+                var that = this;
                 $.ajax({
                     type: "POST",
                     url: this.pageType == 0 ? "/login" : "/register",
@@ -43,11 +44,11 @@ $(document).ready(function () {
                         password: this.password
                     },
                     success: function (response) {
-                        if (this.pageType == 0) {
+                        if (that.pageType == 0) {
                             switch (response.result) {
                                 case "success":
-                                    window.location.href = "main.html"
                                     localStorage.setItem("Token", response.Token);
+                                    window.location.href = "main.html"
                                     break;
                                 case "username":
                                     alert("用户不存在");
@@ -60,11 +61,11 @@ $(document).ready(function () {
                                     break;
                             }
                         } else {
-                            switch (response) {
+                            switch (response.result) {
                                 case "success":
                                     alert("注册成功");
                                     localStorage.setItem("Token", response.Token);
-                                    window.location.href = "me.html?from=register&email=" + this.userName;
+                                    window.location.href = "me.html?from=register&email=" + that.userName;
                                     break;
                                 default:
                                     alert(response.result);

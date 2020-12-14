@@ -1,4 +1,4 @@
-// if (!localStorage.getItem("Token")) window.location.href = "index.html";
+if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var treeData = [
     {
         text: '我的社团',
@@ -35,16 +35,16 @@ $(document).ready(function () {
             currentList: {
                 subHQList: [{
                     id: "0-0",
-                    name: '部门 1'
+                    name: '产品组'
                 }, {
                     id: "0-1",
-                    name: '部门 2'
+                    name: '前端组'
                 }, {
                     id: "0-2",
-                    name: '部门 3'
+                    name: 'UI设计部'
                 }, {
                     id: "0-3",
-                    name: '部门 4'
+                    name: '后台组'
                 }],
                 members: [{
                     id: "123",
@@ -119,13 +119,13 @@ $(document).ready(function () {
                 wechat: "wxid_qwertyxxx123456",
                 dormBuilding: "C0",
                 marrige: false,
-                membership: "自强Studio-技术中心-产品组-部长"
+                membership: "武大学生会-主席"
             }],
             searchText: "",
             memberInfo: null
         },
         mounted() {
-            // if (this.Token == undefined) return;
+            if (this.Token == undefined) return;
             var that = this;
             //获取个人信息
             $.ajax({
@@ -218,7 +218,7 @@ $(document).ready(function () {
                     success: function (response) {
                         switch (response.result) {
                             case "success":
-                                that.myClubs = response.myClubs;
+                                that.myClubs = response.myClubs || [];
                                 break;
                             default:
                                 alert(response.result);
@@ -237,42 +237,31 @@ $(document).ready(function () {
                             isManager: true,
                             hqs: [{
                                 id: "0-0",
-                                text: '部门 1',
+                                text: '技术中心',
                                 tags: [10],
                                 nodes: [{
                                     id: "0-0-0",
-                                    text: '子部门 1',
+                                    text: '前端组',
                                     tags: [10]
                                 },
                                 {
                                     id: "0-0-1",
-                                    text: '子部门 2',
+                                    text: '后台组',
                                     tags: [20]
                                 }],
                                 members: []
                             },
                             {
                                 id: "0-1",
-                                text: '部门 2',
+                                text: '运营中心',
                                 tags: [20],
-                                members: [{
-                                    name: "王三三",
-                                    nickName: "鱼子酱",
-                                    avatarURL: "./src/img/avatar.png",
-                                    gender: 1,
-                                    birthday: "2000-05-22",
-                                    hometown: "湖北省武汉市",
-                                    university: "武汉大学",
-                                    school: "计算机学院",
-                                    grade: "2020（本）",
-                                    schoolNumber: "2020123456789",
-                                    phone: 12345678901,
-                                    email: "1234567890@163.com",
-                                    qq: 12345678,
-                                    wechat: "wxid_qwertyxxx123456",
-                                    dormBuilding: "C0",
-                                    marrige: false
-                                }]
+                                members: []
+                            },
+                            {
+                                id: "0-2",
+                                text: '品牌推广中心',
+                                tags: [20],
+                                members: []
                             }
                             ],
                             members: [{
@@ -301,7 +290,7 @@ $(document).ready(function () {
                 var that = this;
                 var formFile = new FormData();
                 formFile.append("img", this.clubBGImg);
-                formFile.append("Token", "");
+                formFile.append("Token", this.Token);
                 formFile.append("name", this.clubName);
                 formFile.append("description", this.clubDescription);
                 $.ajax({
@@ -341,7 +330,7 @@ $(document).ready(function () {
                     url: "/clubs/join",
                     data: {
                         Token: this.Token,
-                        id: this.newClubId
+                        inviteCode: this.inviteCode
                     },
                     success: function (response) {
                         var msg = "";
@@ -530,8 +519,11 @@ $(document).ready(function () {
                     }
                 });
             },
-            search: function () {
+            search: function (index) {
                 console.log("搜索的内容：" + this.searchText);
+                this.memberInfo = this.searchHistory[index]
+                this.showMemberInfoDialog = true
+                this.searchText = this.searchHistory[index].name
             }
         }
     });
@@ -546,7 +538,7 @@ function excelFileChanged(obj) {
     console.log(obj.files[0]);
     var excelFile = window.URL.createObjectURL(obj.files[0]);
     var formFile = new FormData();
-    formFile.append("Token", "");
+    formFile.append("Token", myVue.Token);
     formFile.append("id", myVue.newClubId);
     formFile.append("memberListFile", excelFile)
     $.ajax({

@@ -41,7 +41,7 @@
                 <div class="placeholder">
                     {{ searchHistory.length==0?"没有":"" }}搜索历史记录
                 </div>
-                <div class="list-item" v-for="(item, index) in searchHistory" v-on:click="searchText=item.name">
+                <div class="list-item" v-for="(item, index) in searchHistory" v-on:click="search(index)">
                     <div class="list-item-left">
                         <img v-bind:src="item.avatarURL" class="list-item-avatar">
                         <div class="list-item-stack">
