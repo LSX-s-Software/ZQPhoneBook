@@ -33,46 +33,10 @@ $(document).ready(function () {
             currentHQId: 0, //当前选中的部门ID
             listEditing: false,
             currentList: {
-                subHQList: [{
-                    id: "0-0",
-                    name: '产品组'
-                }, {
-                    id: "0-1",
-                    name: '前端组'
-                }, {
-                    id: "0-2",
-                    name: 'UI设计部'
-                }, {
-                    id: "0-3",
-                    name: '后台组'
-                }],
-                members: [{
-                    id: "123",
-                    name: "王三三",
-                    nickName: "鱼子酱",
-                    avatarURL: "./src/img/avatar.png",
-                    gender: 1,
-                    birthday: "2000-05-22",
-                    hometown: "湖北省武汉市",
-                    university: "武汉大学",
-                    school: "计算机学院",
-                    grade: "2020（本）",
-                    schoolNumber: "2020123456789",
-                    phone: 12345678901,
-                    email: "1234567890@163.com",
-                    qq: 12345678,
-                    wechat: "wxid_qwertyxxx123456",
-                    dormBuilding: "C0",
-                    marrige: false,
-                    membership: "自强Studio-技术中心-产品组-部长"
-                }]
+                subHQList: [],
+                members: []
             },
-            myInfo: {
-                id: "123",
-                name: "王三三",
-                nickName: "鱼子酱",
-                avatarURL: "./src/img/avatar.png"
-            },
+            myInfo: {},
             myClubs: [],
             step: 1,
             clubName: "",
@@ -82,45 +46,7 @@ $(document).ready(function () {
             inviteCode: "",
             showMemberInfoDialog: false,
             showSearchBox: false,
-            searchHistory: [{
-                id: "123",
-                name: "王三三",
-                nickName: "鱼子酱",
-                avatarURL: "./src/img/avatar.png",
-                gender: 1,
-                birthday: "2000-05-22",
-                hometown: "湖北省武汉市",
-                university: "武汉大学",
-                school: "计算机学院",
-                grade: "2020（本）",
-                schoolNumber: "2020123456789",
-                phone: 12345678901,
-                email: "1234567890@163.com",
-                qq: 12345678,
-                wechat: "wxid_qwertyxxx123456",
-                dormBuilding: "C0",
-                marrige: false,
-                membership: "自强Studio-技术中心-产品组-部长"
-            },{
-                id: "123",
-                name: "王三三",
-                nickName: "鱼子酱",
-                avatarURL: "./src/img/avatar.png",
-                gender: 1,
-                birthday: "2000-05-22",
-                hometown: "湖北省武汉市",
-                university: "武汉大学",
-                school: "计算机学院",
-                grade: "2020（本）",
-                schoolNumber: "2020123456789",
-                phone: 12345678901,
-                email: "1234567890@163.com",
-                qq: 12345678,
-                wechat: "wxid_qwertyxxx123456",
-                dormBuilding: "C0",
-                marrige: false,
-                membership: "武大学生会-主席"
-            }],
+            searchHistory: [],
             searchText: "",
             memberInfo: null
         },
@@ -148,24 +74,6 @@ $(document).ready(function () {
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error(jqXHR);
                     alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown);
-                    that.myInfo = {
-                        name: "王三三",
-                        nickName: "鱼子酱",
-                        avatarURL: "./src/img/avatar.png",
-                        gender: 1,
-                        birthday: "2000-05-22",
-                        hometown: "湖北省武汉市",
-                        university: "武汉大学",
-                        school: "计算机学院",
-                        grade: "2020（本）",
-                        schoolNumber: "2020123456789",
-                        phone: 12345678901,
-                        email: "1234567890@163.com",
-                        qq: 12345678,
-                        wechat: "wxid_qwertyxxx123456",
-                        dormBuilding: "C0",
-                        marrige: false
-                    }
                 }
             });
             this.getMyClub();
@@ -228,61 +136,6 @@ $(document).ready(function () {
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error(jqXHR);
                         alert("获取社团信息失败");
-                        that.myClubs = [{
-                            index: 0,
-                            id: 0,
-                            name: "自强Studio",
-                            bgURL: "./src/img/自强.png",
-                            size: 500,
-                            isManager: true,
-                            hqs: [{
-                                id: "0-0",
-                                text: '技术中心',
-                                tags: [10],
-                                nodes: [{
-                                    id: "0-0-0",
-                                    text: '前端组',
-                                    tags: [10]
-                                },
-                                {
-                                    id: "0-0-1",
-                                    text: '后台组',
-                                    tags: [20]
-                                }],
-                                members: []
-                            },
-                            {
-                                id: "0-1",
-                                text: '运营中心',
-                                tags: [20],
-                                members: []
-                            },
-                            {
-                                id: "0-2",
-                                text: '品牌推广中心',
-                                tags: [20],
-                                members: []
-                            }
-                            ],
-                            members: [{
-                                name: "王三三",
-                                nickName: "鱼子酱",
-                                avatarURL: "./src/img/avatar.png",
-                                gender: 1,
-                                birthday: "2000-05-22",
-                                hometown: "湖北省武汉市",
-                                university: "武汉大学",
-                                school: "计算机学院",
-                                grade: "2020（本）",
-                                schoolNumber: "2020123456789",
-                                phone: 12345678901,
-                                email: "1234567890@163.com",
-                                qq: 12345678,
-                                wechat: "wxid_qwertyxxx123456",
-                                dormBuilding: "C0",
-                                marrige: false
-                            }]
-                        }];
                     }
                 });
             },
