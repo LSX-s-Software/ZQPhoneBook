@@ -1,4 +1,4 @@
-if (!localStorage.getItem("Token")) window.location.href = "index.html";
+// if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var queryString = window.location.search.split("&");
 var myVue;
 $(document).ready(function () {
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error(jqXHR);
-                        alert(textStatus + ":" + jqXHR.statusText + " " + errorThrown);
+                        alert("正在加载示例数据");
                         that.myInfo = {
                             name: "王三三",
                             nickName: "鱼子酱",
@@ -81,6 +81,7 @@ $(document).ready(function () {
         },
         watch: {
             onEdit: function (onEdit) {
+                return;
                 var that = this;
                 if (!onEdit) {
                     var formFile = new FormData();

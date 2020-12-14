@@ -1,4 +1,4 @@
-if (!localStorage.getItem("Token")) window.location.href = "index.html";
+// if (!localStorage.getItem("Token")) window.location.href = "index.html";
 var treeData = [
     {
         text: '我的社团',
@@ -125,7 +125,6 @@ $(document).ready(function () {
             memberInfo: null
         },
         mounted() {
-            if (this.Token == undefined) return;
             var that = this;
             //获取个人信息
             $.ajax({
@@ -147,7 +146,7 @@ $(document).ready(function () {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error(jqXHR);
-                    alert(textStatus + ": " + jqXHR.statusText + " " + errorThrown);
+                    alert("正在加载示例数据");
                     that.myInfo = {
                         name: "王三三",
                         nickName: "鱼子酱",
@@ -227,7 +226,7 @@ $(document).ready(function () {
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error(jqXHR);
-                        alert("获取社团信息失败");
+                        alert("正在加载示例数据");
                         that.myClubs = [{
                             index: 0,
                             id: 0,

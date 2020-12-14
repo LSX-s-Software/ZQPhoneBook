@@ -36,6 +36,8 @@ $(document).ready(function () {
         methods: {
             submit: function () {
                 var that = this;
+                window.location.href = "main.html";
+                return;
                 $.ajax({
                     type: "POST",
                     url: this.pageType == 0 ? "/login" : "/register",
@@ -80,6 +82,7 @@ $(document).ready(function () {
                 });
             },
             check: function () {
+                return;
                 if (this.pageType == 0 || this.userName == "") return
                 var that = this;
                 $.ajax({
